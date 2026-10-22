@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RECOV LAB · 레코브랩</title>
+<meta name="description" content="현직 기구설계 엔지니어가 AI와 함께 만드는 작업실. 옛것을 오늘의 도구로 되살려, 실제로 쓰는 물건을 만듭니다.">
+<meta name="theme-color" content="#FFFFFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="RECOV LAB · 레코브랩">
+<meta property="og:description" content="현직 기구설계 엔지니어가 AI와 함께 만드는 작업실">
+<meta property="og:url" content="https://seungwoo0505.github.io/recov/">
+<meta property="og:image" content="https://seungwoo0505.github.io/recov/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+  :root {
+    --ink: #1C1E22;
+    --red: #D8472B;
+    --gray: #6B6B66;
+    --light: #9A9A94;
+    --hair: #E4E1DA;
+    --paper: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  main {
+    max-width: 440px;
+    min-height: 100vh;
+    min-height: 100svh;
+    margin: 0 auto;
+    padding: 64px 24px calc(32px + env(safe-area-inset-bottom));
+    display: flex;
+    flex-direction: column;
+  }
+  header { text-align: center; }
+  header img { width: 120px; height: auto; display: inline-block; }
+  .lead {
+    margin-top: 32px;
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--gray);
+    text-align: center;
+    word-break: keep-all;
+  }
+  nav { margin-top: 40px; display: flex; flex-direction: column; gap: 12px; }
+  a.link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 20px;
+    border: 1px solid var(--hair);
+    border-radius: 14px;
+    color: var(--ink);
+    text-decoration: none;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  a.link:hover, a.link:focus-visible { border-color: var(--ink); outline: none; }
+  a.link:active { transform: scale(.99); }
+  .t { display: block; font-size: 16px; font-weight: 600; letter-spacing: -.01em; }
+  .s { display: block; margin-top: 4px; font-size: 13px; color: var(--light); }
+  .arrow { flex: none; font-size: 18px; color: var(--light); }
+  footer {
+    margin-top: auto;
+    padding-top: 56px;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: .12em;
+    color: var(--light);
+  }
+  footer .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    margin-right: 8px;
+    border-radius: 50%;
+    background: var(--red);
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <img src="logo.svg" alt="RECOV LAB">
+  </header>
+
+  <p class="lead">현직 기구설계 엔지니어가 AI와 함께 만드는 작업실입니다.<br>옛것을 오늘의 도구로 되살려, 실제로 쓰는 물건을 만듭니다.</p>
+
+  <nav>
+    <a class="link" href="https://smartstore.naver.com/boneulworks">
+      <span><span class="t">보늘 스토어</span><span class="s">옛것을 보고, 오늘을 짓다 · 전통 조명과 오브제</span></span>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="link" href="https://www.youtube.com/channel/UCGVTSLbZTu7BgViq7nVlodg">
+      <span><span class="t">RECOV LAB 유튜브</span><span class="s">설계부터 출력, 판매까지의 제작기</span></span>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="link" href="https://www.instagram.com/boneul.official">
+      <span><span class="t">보늘 인스타그램</span><span class="s">@boneul.official</span></span>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+    <a class="link" href="mailto:boneul_official@naver.com">
+      <span><span class="t">문의 메일</span><span class="s">boneul_official@naver.com</span></span>
+      <span class="arrow" aria-hidden="true">→</span>
+    </a>
+  </nav>
+
+  <footer><span class="dot"></span>RECOV LAB · 레코브랩</footer>
+</main>
+</body>
+</html>
