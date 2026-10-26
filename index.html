@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>RECOV LAB · 레코브랩</title>
-<meta name="description" content="기구설계 엔지니어의 작업실. 옛것을 오늘의 시선으로 되살립니다.">
+<meta name="description" content="기구설계 엔지니어의 작업실. 제품 설계, 시제품 제작, AI 영상 제작 외주 문의를 받습니다.">
 <meta name="theme-color" content="#FFFFFF">
 <meta property="og:type" content="website">
 <meta property="og:title" content="RECOV LAB · 레코브랩">
@@ -15,106 +15,257 @@
 <meta property="og:image:height" content="630">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
   :root {
     --ink: #1C1E22;
     --red: #D8472B;
-    --gray: #6B6B66;
+    --gray: #5F5F5A;
     --light: #9A9A94;
     --hair: #E4E1DA;
-    --paper: #FFFFFF;
+    --paper: #F6F5F1;
+    --white: #FFFFFF;
+    --gutter: 20px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { -webkit-text-size-adjust: 100%; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
   body {
-    background: var(--paper);
+    background: var(--white);
     color: var(--ink);
-    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    word-break: keep-all;
     -webkit-font-smoothing: antialiased;
   }
-  main {
-    max-width: 440px;
-    min-height: 100vh;
-    min-height: 100svh;
-    margin: 0 auto;
-    padding: 64px 24px calc(32px + env(safe-area-inset-bottom));
-    display: flex;
-    flex-direction: column;
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--red); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* 머리 */
+  .bar {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
   }
-  header { text-align: center; }
-  header img { width: 120px; height: auto; display: inline-block; }
-  .lead {
-    margin-top: 32px;
-    font-size: 15px;
-    line-height: 1.75;
-    color: var(--gray);
-    text-align: center;
-    word-break: keep-all;
+  .bar img { height: 22px; width: auto; }
+  .bar a.ask { font-size: 14px; font-weight: 600; text-decoration: none; padding: 8px 0; }
+  .bar a.ask:hover { color: var(--red); }
+
+  /* 첫 화면: 한 문장과 점 하나 */
+  .hero { padding: 56px 0 72px; }
+  .hero h1 {
+    font-size: clamp(34px, 8.6vw, 64px);
+    line-height: 1.24;
+    font-weight: 700;
+    letter-spacing: -0.035em;
   }
-  nav { margin-top: 40px; display: flex; flex-direction: column; gap: 12px; }
-  a.link {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 18px 20px;
-    border: 1px solid var(--hair);
-    border-radius: 14px;
-    color: var(--ink);
-    text-decoration: none;
-    transition: border-color .15s ease, transform .15s ease;
-  }
-  a.link:hover, a.link:focus-visible { border-color: var(--ink); outline: none; }
-  a.link:active { transform: scale(.99); }
-  .t { display: block; font-size: 16px; font-weight: 600; letter-spacing: -.01em; }
-  .s { display: block; margin-top: 4px; font-size: 13px; color: var(--light); }
-  .arrow { flex: none; font-size: 18px; color: var(--light); }
-  footer {
-    margin-top: auto;
-    padding-top: 56px;
-    text-align: center;
-    font-size: 12px;
-    letter-spacing: .12em;
-    color: var(--light);
-  }
-  footer .dot {
+  .period {
     display: inline-block;
-    width: 6px; height: 6px;
-    margin-right: 8px;
+    width: .2em; height: .2em;
+    margin-left: .06em;
     border-radius: 50%;
     background: var(--red);
-    vertical-align: middle;
+  }
+  .hero h1 .period { animation: land .5s cubic-bezier(.2, 1.6, .4, 1) .35s both; }
+  @keyframes land { from { transform: scale(0); } to { transform: scale(1); } }
+  .hero .intro { margin-top: 24px; max-width: 34em; color: var(--gray); font-size: 17px; }
+  .actions { margin-top: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-height: 52px; padding: 0 26px;
+    border-radius: 999px;
+    background: var(--ink); color: var(--white);
+    font-size: 16px; font-weight: 600; text-decoration: none;
+  }
+  .btn:hover { background: #000; }
+  .more { font-size: 15px; font-weight: 600; text-underline-offset: 5px; text-decoration-thickness: 1px; }
+  .more:hover { color: var(--red); }
+
+  /* 구획: 위에 가는 선, 제목은 왼쪽 */
+  .block { border-top: 1px solid var(--hair); padding: 24px 0 72px; }
+  .block > h2, .contact h2 { font-size: 15px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 28px; }
+
+  /* 만든 것 */
+  .works { display: grid; gap: 48px; }
+  .work img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; background: var(--paper); }
+  .work h3 { margin-top: 20px; font-size: 20px; line-height: 1.4; font-weight: 700; letter-spacing: -0.02em; }
+  .work p { margin-top: 8px; color: var(--gray); }
+  .work .role { margin-top: 12px; font-size: 14px; color: var(--ink); }
+  .work .role span { color: var(--light); margin-right: 8px; }
+  .work a.more { display: inline-block; margin-top: 16px; }
+  .note { font-size: 14px; color: var(--light); }
+
+  /* 하는 일 */
+  .services div { padding: 20px 0; border-bottom: 1px solid var(--hair); }
+  .services div:first-child { padding-top: 0; }
+  .services dt { font-size: 18px; font-weight: 700; letter-spacing: -0.02em; }
+  .services dd { margin-top: 6px; color: var(--gray); }
+
+  /* 외주 문의 */
+  .contact { background: var(--paper); border-radius: 20px; padding: 32px 24px 36px; margin-bottom: 72px; }
+  .contact .lede { font-size: 22px; line-height: 1.45; font-weight: 700; letter-spacing: -0.03em; }
+  .contact .sub { margin-top: 12px; color: var(--gray); }
+  .steps { list-style: none; counter-reset: s; margin-top: 28px; }
+  .steps li { counter-increment: s; position: relative; padding: 16px 0 16px 40px; border-top: 1px solid var(--hair); }
+  .steps li::before {
+    content: counter(s);
+    position: absolute; left: 0; top: 17px;
+    width: 24px; height: 24px; border-radius: 50%;
+    border: 1px solid var(--ink);
+    font-size: 13px; font-weight: 600; line-height: 22px; text-align: center;
+  }
+  .steps strong { display: block; font-weight: 700; }
+  .steps span { display: block; margin-top: 2px; font-size: 15px; color: var(--gray); }
+  .contact .btn { margin-top: 28px; width: 100%; }
+  .mail { margin-top: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 15px; }
+  .mail .addr { font-weight: 600; overflow-wrap: anywhere; }
+  .mail button {
+    font: inherit; font-size: 13px; color: var(--gray);
+    background: var(--white); border: 1px solid var(--hair); border-radius: 999px;
+    padding: 4px 12px; cursor: pointer;
+  }
+  .mail button:hover { border-color: var(--ink); color: var(--ink); }
+
+  /* 바로가기 */
+  .links { list-style: none; }
+  .links a {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+    padding: 18px 0; border-bottom: 1px solid var(--hair);
+    text-decoration: none;
+  }
+  .links li:first-child a { padding-top: 0; }
+  .links .t { font-weight: 600; }
+  .links .d { font-size: 14px; color: var(--light); text-align: right; }
+  .links a:hover .t { color: var(--red); }
+
+  footer { padding: 40px 0 calc(40px + env(safe-area-inset-bottom)); font-size: 13px; color: var(--light); }
+  footer .period { width: 6px; height: 6px; margin: 0 8px 0 0; vertical-align: middle; }
+
+  @media (min-width: 760px) {
+    :root { --gutter: 40px; }
+    .bar { height: 80px; }
+    .bar img { height: 26px; }
+    .hero { padding: 96px 0 120px; }
+    .hero .intro { font-size: 19px; }
+    /* 구획 제목은 왼쪽 칸, 내용은 오른쪽 칸 */
+    .block { display: grid; grid-template-columns: 220px 1fr; padding: 28px 0 112px; }
+    .block > h2 { margin: 0; }
+    .works { grid-template-columns: 1fr 1fr; gap: 40px 32px; }
+    .note { grid-column: 1 / -1; }
+    .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 0 56px; padding: 56px; margin-bottom: 112px; }
+    .contact h2 { grid-column: 1 / -1; }
+    .contact .lede { font-size: 28px; }
+    .steps { margin-top: 0; }
+    .contact .btn { width: auto; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .hero h1 .period { animation: none; }
   }
 </style>
 </head>
 <body>
-<main>
-  <header>
-    <img src="logo.svg" alt="RECOV LAB">
+<div class="wrap">
+  <header class="bar">
+    <a href="./" aria-label="RECOV LAB 처음으로"><img src="logo_h.svg" alt="RECOV LAB"></a>
+    <a class="ask" href="#contact">외주 문의</a>
   </header>
 
-  <p class="lead">기구설계 엔지니어의 작업실<br>옛것을 오늘의 시선으로 되살립니다</p>
+  <main>
+    <section class="hero">
+      <h1>옛것을 오늘의 시선으로<br>되살립니다<span class="period" aria-hidden="true"></span></h1>
+      <p class="intro">RECOV LAB은 기구설계 엔지니어의 작업실입니다. 물건을 설계해 직접 만들고, 광고 영상은 AI로 만듭니다.</p>
+      <div class="actions">
+        <a class="btn" href="#contact">외주 문의하기</a>
+        <a class="more" href="#work">만든 것 보기</a>
+      </div>
+    </section>
 
-  <nav>
-    <a class="link" href="https://smartstore.naver.com/boneulworks">
-      <span><span class="t">보늘 스토어</span><span class="s">옛것을 보고, 오늘을 짓다 · 전통 조명과 오브제</span></span>
-      <span class="arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="link" href="https://www.youtube.com/channel/UCGVTSLbZTu7BgViq7nVlodg">
-      <span><span class="t">RECOV LAB 유튜브</span><span class="s">설계부터 제작, 판매까지의 기록</span></span>
-      <span class="arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="link" href="https://www.instagram.com/boneul.official">
-      <span><span class="t">보늘 인스타그램</span><span class="s">@boneul.official</span></span>
-      <span class="arrow" aria-hidden="true">→</span>
-    </a>
-    <a class="link" href="mailto:boneul_official@naver.com">
-      <span><span class="t">문의 메일</span><span class="s">boneul_official@naver.com</span></span>
-      <span class="arrow" aria-hidden="true">→</span>
-    </a>
-  </nav>
+    <section class="block" id="work">
+      <h2>만든 것</h2>
+      <div class="works">
+        <article class="work">
+          <img src="img/seokdeung.jpg" alt="한옥 마루 앞에 불을 켠 석등 무드등 세 개" width="900" height="900" loading="lazy">
+          <h3>나주 서문 석등 무드등</h3>
+          <p>나주 서문 석등의 비례를 살려, 방 안에 두는 무드등으로 다시 설계했습니다. 전통 조명 브랜드 보늘의 제품입니다.</p>
+          <p class="role"><span>맡은 일</span>형태 조사, 3D 설계, 시제품, 포장, 판매</p>
+          <a class="more" href="https://smartstore.naver.com/boneulworks">보늘 스토어에서 보기</a>
+        </article>
+        <article class="work">
+          <img src="img/nepda.jpg" alt="키보드를 내리치는 남자 옆으로 넾 글자가 튀어나오는 광고 장면" width="900" height="900" loading="lazy">
+          <h3>AI 광고 「넾다세일」</h3>
+          <p>넾다세일 AI 광고제에 낸 세로 광고입니다. 기획과 콘티를 쓰고, 그림·영상·목소리를 AI 도구로 만들어 편집했습니다.</p>
+          <p class="role"><span>맡은 일</span>기획, 콘티, AI 영상, 편집</p>
+          <a class="more" href="https://www.instagram.com/reel/DebRIrWoBw8/">영상 보기</a>
+        </article>
+        <p class="note">공모전에 낸 작품은 결과 발표가 끝나면 이곳에 더 올립니다.</p>
+      </div>
+    </section>
 
-  <footer><span class="dot"></span>RECOV LAB · 레코브랩</footer>
-</main>
+    <section class="block">
+      <h2>하는 일</h2>
+      <dl class="services">
+        <div>
+          <dt>제품 설계</dt>
+          <dd>아이디어나 스케치를 조립되는 3D 모델과 도면으로 바꿉니다. 부품 나누기, 공차, 조립 순서까지 함께 봅니다.</dd>
+        </div>
+        <div>
+          <dt>시제품·소량 제작</dt>
+          <dd>시제품을 직접 만들어 크기와 조립, 빛을 손으로 확인합니다. 소량 생산과 포장까지 이어 갈 수 있습니다.</dd>
+        </div>
+        <div>
+          <dt>AI 영상 제작</dt>
+          <dd>제품 광고, 숏폼, 홍보 영상을 기획부터 편집까지 만듭니다. 콘티·그림·영상·목소리를 AI 도구로 작업해, 촬영 없이도 만들 수 있습니다.</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="contact" id="contact">
+      <h2>외주 문의</h2>
+      <div>
+        <p class="lede">만들고 싶은 물건이나<br>영상이 있으신가요?</p>
+        <p class="sub">제품 설계, 시제품 제작, AI 영상 제작을 맡습니다. 아이디어 단계여도 괜찮습니다. 메일로 알려 주시면 읽고 답장드립니다.</p>
+        <a class="btn" href="mailto:boneul_official@naver.com?subject=%5B%EC%99%B8%EC%A3%BC%20%EB%AC%B8%EC%9D%98%5D%20&amp;body=%EC%9B%90%ED%95%98%EB%8A%94%20%EC%9E%91%EC%97%85%28%EC%A0%9C%ED%92%88%20%EC%84%A4%EA%B3%84%20/%20%EC%8B%9C%EC%A0%9C%ED%92%88%20/%20AI%20%EC%98%81%EC%83%81%29%3A%0A%0A%EB%A7%8C%EB%93%A4%EA%B3%A0%20%EC%8B%B6%EC%9D%80%20%EA%B2%83%3A%0A%0A%EC%96%B8%EC%A0%9C%EA%B9%8C%EC%A7%80%3A%0A%0A%EC%98%88%EC%82%B0%3A%0A%0A%EC%B0%B8%EA%B3%A0%20%EC%9E%90%EB%A3%8C%28%EC%82%AC%EC%A7%84%C2%B7%EC%8A%A4%EC%BC%80%EC%B9%98%C2%B7%EB%A7%81%ED%81%AC%29%3A%0A">문의 메일 쓰기</a>
+        <p class="mail"><span class="addr">boneul_official@naver.com</span><button type="button" data-copy="boneul_official@naver.com">주소 복사</button></p>
+      </div>
+      <ol class="steps">
+        <li><strong>메일로 알려 주세요</strong><span>만들고 싶은 것, 원하는 일정, 예산, 참고 사진이나 링크</span></li>
+        <li><strong>범위와 견적을 답장드립니다</strong><span>무엇을 어디까지 만들지, 일정과 비용을 정리해 보내 드립니다</span></li>
+        <li><strong>만들어서 전달합니다</strong><span>중간 결과를 보여 드리고, 3D 모델·도면·시제품·영상 파일로 넘겨 드립니다</span></li>
+      </ol>
+    </section>
+
+    <section class="block">
+      <h2>바로가기</h2>
+      <ul class="links">
+        <li><a href="https://smartstore.naver.com/boneulworks"><span class="t">보늘 스토어</span><span class="d">네이버 스마트스토어</span></a></li>
+        <li><a href="https://www.youtube.com/channel/UCGVTSLbZTu7BgViq7nVlodg"><span class="t">RECOV LAB 유튜브</span><span class="d">설계부터 판매까지의 기록</span></a></li>
+        <li><a href="https://www.instagram.com/boneul.official"><span class="t">보늘 인스타그램</span><span class="d">@boneul.official</span></a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer><span class="period" aria-hidden="true"></span>RECOV LAB · 레코브랩</footer>
+</div>
+<script>
+  document.querySelectorAll("[data-copy]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var done = function (msg) {
+        b.textContent = msg;
+        setTimeout(function () { b.textContent = "주소 복사"; }, 2000);
+      };
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(b.dataset.copy).then(function () { done("복사했습니다"); }, function () { done("길게 눌러 복사해 주세요"); });
+      } else {
+        done("길게 눌러 복사해 주세요");
+      }
+    });
+  });
+</script>
 </body>
 </html>
