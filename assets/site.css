@@ -112,6 +112,27 @@ a:hover { color: #BDBDB8; }
 .btn.fill:hover { background: #E2E2DE; color: #0B0B0B; }
 .btn.wide { align-self: stretch; justify-content: center; }
 
+/* 서비스 */
+.svc-teaser { padding: 0 var(--gutter) 64px; display: flex; flex-direction: column; gap: 12px; }
+.svc-teaser h2, .about h2 { font-size: 52px; line-height: 1; letter-spacing: -.01em; }
+.svc-teaser .services { margin-top: 16px; }
+.svc-teaser .more { display: inline-block; margin-top: 8px; padding: 10px 0; font-size: 14px; font-weight: 500; }
+.ticks { list-style: none; margin-top: 6px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--text); }
+.ticks li { padding-left: 16px; position: relative; }
+.ticks li::before { content: ""; position: absolute; left: 0; top: .72em; width: 7px; height: 1px; background: var(--sub); }
+.process { padding: 64px var(--gutter) 0; display: flex; flex-direction: column; gap: 16px; }
+.process ol { list-style: none; border-top: 1px solid var(--line); }
+.process li { display: grid; grid-template-columns: 36px 1fr; column-gap: 8px; row-gap: 2px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.process li .cond { grid-row: span 2; font-size: 17px; color: var(--sub); line-height: 1.5; }
+.process li b { font-size: 16px; }
+.process li p { font-size: 14px; color: var(--body); line-height: 1.6; }
+.faq dl { border-top: 1px solid var(--line); }
+.faq dl div { padding: 18px 0; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 6px; }
+.faq dt { font-size: 16px; font-weight: 700; }
+.faq dd { font-size: 14px; line-height: 1.7; color: var(--body); }
+.contact .mail { margin-top: 10px; font-size: 13px; color: var(--sub); }
+#request { padding-top: 64px; }
+
 .site-footer {
   padding: 24px var(--gutter) calc(32px + env(safe-area-inset-bottom));
   border-top: 1px solid var(--line-soft);
@@ -214,6 +235,21 @@ a:hover { color: #BDBDB8; }
   .next .btn { margin: 0; }
   .next .to .cond { font-size: 32px; }
   .detail-contact { padding-top: 96px; }
+
+  .svc-teaser { padding: 0 var(--gutter) 120px; gap: 24px; }
+  .svc-teaser h2 { font-size: 68px; }
+  .svc-teaser .split, .about .split { align-items: start; }
+  .svc-teaser .services { margin-top: 0; }
+  .ticks { font-size: 15px; margin-top: 10px; }
+  .process { padding: 120px var(--gutter) 0; display: grid; grid-template-columns: var(--col); gap: var(--gap); align-items: start; }
+  .process ol { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 32px; border-top: 0; }
+  .process li { border-top: 1px solid var(--line); border-bottom: 0; padding: 20px 0 32px; }
+  .process li b { font-size: 18px; }
+  .process li p { font-size: 15px; }
+  .faq dl div { display: grid; grid-template-columns: 300px 1fr; gap: 24px; padding: 22px 0; }
+  .faq dt { font-size: 17px; }
+  .faq dd { font-size: 16px; }
+  #request { padding-top: 120px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
