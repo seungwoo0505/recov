@@ -1,0 +1,222 @@
+/* RECOV LAB 홈페이지 공통 스타일 — 검은 바탕 · 전면 사진 · 사례 중심 */
+:root {
+  --bg: #0B0B0B;
+  --text: #FFFFFF;
+  --body: #D6D6D2;
+  --sub: #A3A39E;
+  --line: #333333;
+  --line-soft: #262626;
+  --accent: #D8472B;
+  --gutter: 20px;
+  --col: 1fr;
+  --gap: 0px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; background: var(--bg); }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+a:hover { color: #BDBDB8; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.cond { font-family: "Antonio", "Arial Narrow", sans-serif; font-weight: 400; }
+.label { font-size: 13px; color: var(--sub); }
+.skip { position: absolute; left: -999px; top: 0; }
+.skip:focus { left: 12px; top: 12px; z-index: 50; background: #fff; color: #000; padding: 8px 12px; }
+
+/* ── 머리 (사진 위에 겹침) ── */
+.site-header {
+  position: absolute; z-index: 10; left: 0; right: 0; top: 0;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding: 20px var(--gutter);
+}
+.site-header .logo img { height: 16px; width: auto; margin-top: 5px; }
+.site-header nav { display: flex; gap: 14px; align-items: center; }
+.site-header nav a { font-size: 13px; font-weight: 500; padding: 4px 0; }
+.site-header nav a[aria-current="page"] { font-weight: 700; }
+.site-header .ask { display: none; }
+
+/* ── 첫 화면 ── */
+.hero { position: relative; height: 660px; height: min(100svh, 760px); min-height: 560px; overflow: hidden; background: #161616; }
+.hero .slide { position: absolute; inset: 0; opacity: 0; transition: opacity .9s ease; }
+.hero .slide.on { opacity: 1; }
+.hero .slide img { width: 100%; height: 100%; object-fit: cover; }
+.hero::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,.05) 30%, rgba(0,0,0,.1) 60%, rgba(0,0,0,.7) 100%);
+}
+.hero .foot {
+  position: absolute; z-index: 5; left: 0; right: 0; bottom: 0;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  padding: 0 var(--gutter) 18px;
+}
+.hero .cap { display: flex; flex-direction: column; gap: 2px; }
+.hero .cap .tag { font-size: 13px; letter-spacing: .06em; color: #E2E2DE; }
+.hero .cap .name { font-size: 15px; font-weight: 700; }
+.hero .dots { display: flex; }
+.hero .dots button {
+  width: 32px; height: 44px; border: 0; background: transparent; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.hero .dots span { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.4); }
+.hero .dots button[aria-current="true"] span { background: #fff; }
+.hero .down { display: none; }
+.detail-hero { height: 520px; }
+
+/* ── 본문 공통 ── */
+.wrap { padding: 0 var(--gutter); }
+.section { padding: 0 var(--gutter) 64px; }
+.split { display: grid; grid-template-columns: var(--col); gap: var(--gap); }
+.intro { padding: 44px var(--gutter) 56px; display: flex; flex-direction: column; gap: 16px; }
+.intro .lead { font-size: 22px; line-height: 1.55; font-weight: 500; letter-spacing: -.02em; max-width: 920px; }
+.intro .motto { font-size: 13px; color: var(--sub); }
+.dot { display: inline-block; width: 6px; height: 6px; margin-left: 6px; border-radius: 50%; background: var(--accent); vertical-align: middle; }
+
+/* 사례 */
+.case { padding: 0 0 64px; }
+.case .text { padding: 0 var(--gutter) 20px; display: flex; flex-direction: column; gap: 10px; }
+.case h2, .about h2, .detail-title h1 { font-size: 52px; line-height: 1; letter-spacing: -.01em; }
+.case .sub { font-size: 16px; font-weight: 700; }
+.case p.desc { margin-top: 6px; font-size: 15px; line-height: 1.75; color: var(--body); }
+.case .more { margin-top: 4px; padding: 10px 0; font-size: 14px; font-weight: 500; align-self: flex-start; }
+.case .pic img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+
+/* 소개 */
+.about { padding: 0 var(--gutter) 64px; display: flex; flex-direction: column; gap: 12px; }
+.about p.desc { margin-top: 6px; font-size: 15px; line-height: 1.75; color: var(--body); }
+.facts { margin-top: 8px; display: grid; grid-template-columns: 56px 1fr; row-gap: 8px; font-size: 14px; }
+.facts dt { color: var(--sub); }
+.services { list-style: none; margin-top: 16px; border-top: 1px solid var(--line); }
+.services li { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.services b { font-size: 16px; }
+.services span { font-size: 13px; color: var(--sub); text-align: right; }
+
+/* 문의 */
+.contact { padding: 0 var(--gutter) 56px; display: flex; flex-direction: column; gap: 12px; }
+.contact .split { row-gap: 12px; }
+.contact h2 { font-size: 26px; line-height: 1.4; letter-spacing: -.03em; }
+.contact p { font-size: 15px; line-height: 1.7; color: var(--body); }
+.btn {
+  align-self: flex-start; margin-top: 10px; min-height: 50px; padding: 0 26px;
+  display: inline-flex; align-items: center; border: 1px solid #fff; border-radius: 999px;
+  font-size: 15px; font-weight: 700;
+}
+.btn.fill { background: #fff; color: #0B0B0B; }
+.btn.fill:hover { background: #E2E2DE; color: #0B0B0B; }
+.btn.wide { align-self: stretch; justify-content: center; }
+
+.site-footer {
+  padding: 24px var(--gutter) calc(32px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line-soft);
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+  font-size: 12px; color: var(--sub);
+}
+.site-footer nav { display: flex; gap: 14px; }
+.site-footer nav a { color: var(--text); }
+
+/* ── 상세 페이지 ── */
+.detail-title { padding: 36px var(--gutter) 40px; display: flex; flex-direction: column; gap: 12px; }
+.detail-title .back { align-self: flex-start; padding: 8px 0; font-size: 13px; color: var(--sub); }
+.detail-title .sub { font-size: 18px; font-weight: 700; }
+.detail-title .lead { margin-top: 8px; font-size: 15px; line-height: 1.8; color: var(--body); }
+.specs { margin: 28px 0 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr; }
+.specs div { display: grid; grid-template-columns: 88px 1fr; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.specs dt { color: var(--sub); }
+.steps { padding: 64px 0 0; display: flex; flex-direction: column; gap: 56px; }
+.step { display: grid; grid-template-columns: var(--col); gap: 14px; }
+.step .text { padding: 0 var(--gutter); display: flex; flex-direction: column; gap: 8px; }
+.step .no { font-size: 15px; color: var(--sub); letter-spacing: .04em; }
+.step h2 { font-size: 21px; letter-spacing: -.02em; }
+.step p { font-size: 15px; line-height: 1.8; color: var(--body); }
+.step .pic img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.step .pic.light { background: #F3F2EE; display: flex; justify-content: center; }
+.step .pic.light img { width: 78%; object-fit: contain; aspect-ratio: auto; }
+.step .pic.white { background: #FFFFFF; display: flex; align-items: center; }
+.step .pic.white img { aspect-ratio: auto; object-fit: contain; }
+.step .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 var(--gutter); }
+.step .pair img, .step .pair .white { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.step .pair .white { background: #fff; display: flex; align-items: center; }
+.step .pair .white img { aspect-ratio: auto; object-fit: contain; }
+.next { padding: 48px var(--gutter) 0; display: flex; flex-direction: column; gap: 10px; }
+.next .to { padding: 18px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); }
+.next .to .cond { font-size: 22px; }
+.detail-contact { padding-top: 48px; }
+
+/* ── PC ── */
+@media (min-width: 900px) {
+  :root { --gutter: 40px; --col: 400px minmax(0, 1fr); --gap: 40px; }
+  .site-header { padding: 32px var(--gutter); }
+  .site-header .logo img { height: 24px; margin-top: 0; }
+  .site-header nav { gap: 28px; }
+  .site-header nav a { font-size: 16px; font-weight: 400; }
+  .site-header .ask { display: inline-block; padding: 8px 16px; border: 1px solid #fff; border-radius: 999px; }
+  .hero { height: 760px; height: min(100vh, 860px); }
+  .hero .foot { padding: 0 var(--gutter) 28px; }
+  .hero .cap .tag { font-size: 15px; }
+  .hero .cap .name { font-size: 18px; }
+  .hero .down { display: block; margin-bottom: 8px; }
+  .detail-hero { height: 680px; }
+  .label { font-size: 15px; }
+
+  .intro { padding: 88px var(--gutter) 104px; gap: 20px; }
+  .intro .lead { font-size: 34px; line-height: 1.5; }
+  .intro .motto { font-size: 15px; }
+
+  .case, .about, .contact { padding: 0 var(--gutter) 120px; }
+  .case { display: flex; flex-direction: column; gap: 24px; }
+  .case .wrap { padding: 0; }
+  .case .split { align-items: start; }
+  .case .text { padding: 0; gap: 14px; }
+  .case h2, .about h2 { font-size: 68px; }
+  .case .sub { font-size: 18px; }
+  .case p.desc, .about p.desc { font-size: 16px; }
+  .case .pic img { aspect-ratio: 760 / 520; }
+  .about { gap: 24px; }
+  .about .split { align-items: start; }
+  .facts { grid-template-columns: 64px 1fr; font-size: 15px; }
+  .services { margin-top: 0; }
+  .services li { display: grid; grid-template-columns: 220px 1fr; padding: 22px 0; }
+  .services b { font-size: 20px; }
+  .services span { font-size: 16px; text-align: left; }
+  .contact { gap: 24px; padding-bottom: 104px; }
+  .contact .split { align-items: end; }
+  .contact h2 { font-size: 34px; }
+  .contact p { font-size: 17px; }
+  .site-footer { font-size: 13px; padding: 28px var(--gutter) 32px; }
+
+  .detail-title { display: grid; grid-template-columns: var(--col); gap: var(--gap); padding: 72px var(--gutter) 96px; }
+  .detail-title .head { display: flex; flex-direction: column; gap: 14px; }
+  .detail-title h1 { font-size: 80px; }
+  .detail-title .sub { font-size: 20px; }
+  .detail-title .body { display: flex; flex-direction: column; gap: 32px; padding-top: 40px; }
+  .detail-title .lead { margin: 0; font-size: 20px; color: #E2E2DE; }
+  .specs { margin: 0; grid-template-columns: 1fr 1fr; column-gap: 40px; }
+  .specs div { grid-template-columns: 80px 1fr; padding: 14px 0; font-size: 15px; }
+  .steps { padding: 0 var(--gutter); gap: 96px; }
+  .step { gap: var(--gap); align-items: start; }
+  .step .text { padding: 0; gap: 12px; }
+  .step .no { font-size: 17px; }
+  .step h2 { font-size: 28px; }
+  .step p { font-size: 16px; }
+  .step .pic img { aspect-ratio: 760 / 500; }
+  .step .pic.light { height: 480px; align-items: center; }
+  .step .pic.light img { width: auto; height: 92%; }
+  .step .pair { padding: 0; gap: 16px; }
+  .step .pair img, .step .pair .white { aspect-ratio: 372 / 440; }
+  .next { padding: 96px var(--gutter) 0; display: grid; grid-template-columns: var(--col); gap: var(--gap); align-items: center; }
+  .next .btn { margin: 0; }
+  .next .to .cond { font-size: 32px; }
+  .detail-contact { padding-top: 96px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero .slide { transition: none; }
+}
