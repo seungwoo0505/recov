@@ -157,6 +157,7 @@ a:hover { color: #BDBDB8; }
 .step h2 { font-size: 21px; letter-spacing: -.02em; }
 .step p { font-size: 15px; line-height: 1.8; color: var(--body); }
 .step .pic img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.step .pic video { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; background: #242424; }
 .step .pic.light { background: #F3F2EE; display: flex; justify-content: center; }
 .step .pic.light img { width: 78%; object-fit: contain; aspect-ratio: auto; }
 .step .pic.white { background: #FFFFFF; display: flex; align-items: center; }

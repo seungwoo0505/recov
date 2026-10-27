@@ -98,9 +98,9 @@
       <div class="text">
         <span class="no cond">04 — SYSTEM</span>
         <h2>주문에서 출력까지</h2>
-        <p>고객이 고른 케이스, 문구, 색이 바로 출력 파일이 되도록 주문 생성기를 만들고 있습니다. 주문마다 손으로 고치던 작업을 줄이는 것이 목표입니다.</p>
+        <p>주문서에 적힌 케이스, 문구, 색을 읽어 출력용 3D 파일을 자동으로 만드는 생성기를 만들었습니다. 영상은 같은 문구에 색만 바꾼 예시 주문 세 건을 실제 생성기로 만든 결과입니다. 고객이 직접 고르는 화면은 개발 중입니다.</p>
       </div>
-      <div class="pic"><img src="../img/hex_group.jpg" alt="색이 다른 HEXATRAIL 케이스 세 개" width="1440" height="864" loading="lazy"></div>
+      <div class="pic"><video class="loop" autoplay muted loop playsinline preload="metadata" poster="../img/hex_generator_poster.jpg" width="1200" height="800" aria-label="예시 주문 세 건의 색 조합에 따라 생성기가 만든 뚜껑판과 명판 3D 모델"><source src="../img/hex_generator.mp4" type="video/mp4"></video></div>
     </article>
   </section>
 
@@ -128,5 +128,11 @@
     <a href="https://www.instagram.com/boneul.official">Instagram</a>
   </nav>
 </footer>
+<script>
+// 움직임 줄이기 설정이면 영상을 첫 장면에 멈춰 둔다
+if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  document.querySelectorAll("video.loop").forEach(function (v) { v.removeAttribute("autoplay"); v.pause(); });
+}
+</script>
 </body>
 </html>
