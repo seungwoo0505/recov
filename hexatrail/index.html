@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@400&display=swap">
-<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/site.css?v=20261027c">
 </head>
 <body>
 <a class="skip" href="#main">본문으로</a>
@@ -108,7 +108,7 @@
         </ul>
         <p class="note">고객이 직접 고르는 주문 화면은 개발 중입니다.</p>
       </div>
-      <div class="pic"><video class="loop" autoplay muted loop playsinline preload="metadata" poster="../img/hex_typing_poster.jpg" width="1200" height="800" aria-label="주문 입력칸에 문구를 한 글자씩 입력할 때마다 생성기가 만든 명판 3D 모델이 바뀌는 영상"><source src="../img/hex_typing.mp4" type="video/mp4"></video></div>
+      <div class="pic"><video class="loop" autoplay muted loop playsinline preload="metadata" poster="../img/hex_typing_poster.jpg" width="1200" height="800" aria-label="주문 입력칸에 문구를 한 글자씩 입력할 때마다 생성기가 만든 명판 3D 모델이 바뀌는 영상"><source src="../img/hex_typing.mp4?v=2" type="video/mp4"></video></div>
     </article>
   </section>
 
@@ -137,10 +137,12 @@
   </nav>
 </footer>
 <script>
-// 움직임 줄이기 설정이면 영상을 첫 장면에 멈춰 둔다
-if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  document.querySelectorAll("video.loop").forEach(function (v) { v.removeAttribute("autoplay"); v.pause(); });
-}
+// 휴대폰 절전 모드 등으로 자동 재생이 막히면 재생 버튼을 보여 준다. 움직임 줄이기 설정이면 멈춰 둔다.
+document.querySelectorAll("video.loop").forEach(function (v) {
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) { v.removeAttribute("autoplay"); v.pause(); v.controls = true; return; }
+  var p = v.play && v.play();
+  if (p && p.catch) p.catch(function () { v.controls = true; });
+});
 </script>
 </body>
 </html>
