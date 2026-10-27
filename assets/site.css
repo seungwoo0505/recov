@@ -156,6 +156,8 @@ a:hover { color: #BDBDB8; }
 .step .no { font-size: 15px; color: var(--sub); letter-spacing: .04em; }
 .step h2 { font-size: 21px; letter-spacing: -.02em; }
 .step p { font-size: 15px; line-height: 1.8; color: var(--body); }
+.step .badge { align-self: flex-start; padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px; font-size: 12px; color: var(--text); }
+.step p.note { font-size: 13px; color: var(--sub); }
 .step .pic img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
 .step .pic video { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; background: #242424; }
 .step .pic.light { background: #F3F2EE; display: flex; justify-content: center; }
