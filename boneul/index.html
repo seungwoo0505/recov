@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@400&display=swap">
-<link rel="stylesheet" href="../assets/site.css?v=20261027c">
+<link rel="stylesheet" href="../assets/site.css?v=20261027d">
 </head>
 <body>
 <a class="skip" href="#main">본문으로</a>
@@ -101,7 +101,7 @@
         <h2>제품이 되다</h2>
         <p>세 가지 돌 색으로 정리하고 디자인 출원을 마쳤습니다. 보늘 스마트스토어에서 판매를 준비하고 있습니다.</p>
       </div>
-      <div class="pic"><img src="../img/lant_lit.jpg" alt="불을 켠 세 가지 색의 석등 무드등" width="860" height="645" loading="lazy"></div>
+      <div class="pic"><video class="loop sq" autoplay muted loop playsinline preload="metadata" poster="../img/lant_lit_poster.jpg" width="720" height="720" aria-label="세 가지 색의 석등 무드등에 불이 켜졌다 꺼지는 영상"><source src="../img/lant_lit.mp4?v=1" type="video/mp4"></video></div>
     </article>
   </section>
 
@@ -129,5 +129,13 @@
     <a href="https://www.instagram.com/boneul.official">Instagram</a>
   </nav>
 </footer>
+<script>
+// 휴대폰 절전 모드 등으로 자동 재생이 막히면 재생 버튼을 보여 준다. 움직임 줄이기 설정이면 멈춰 둔다.
+document.querySelectorAll("video.loop").forEach(function (v) {
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) { v.removeAttribute("autoplay"); v.pause(); v.controls = true; return; }
+  var p = v.play && v.play();
+  if (p && p.catch) p.catch(function () { v.controls = true; });
+});
+</script>
 </body>
 </html>

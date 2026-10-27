@@ -160,6 +160,7 @@ a:hover { color: #BDBDB8; }
 .step p.note { font-size: 13px; color: var(--sub); }
 .step .pic img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
 .step .pic video { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; background: #242424; }
+.step .pic video.sq { aspect-ratio: 1 / 1; background: #0f0d0b; }
 .step .pic.light { background: #F3F2EE; display: flex; justify-content: center; }
 .step .pic.light img { width: 78%; object-fit: contain; aspect-ratio: auto; }
 .step .pic.white { background: #FFFFFF; display: flex; align-items: center; }
@@ -230,6 +231,7 @@ a:hover { color: #BDBDB8; }
   .step h2 { font-size: 28px; }
   .step p { font-size: 16px; }
   .step .pic img { aspect-ratio: 760 / 500; }
+  .step .pic video.sq { aspect-ratio: 760 / 500; object-fit: contain; }
   .step .pic.light { height: 480px; align-items: center; }
   .step .pic.light img { width: auto; height: 92%; }
   .step .pair { padding: 0; gap: 16px; }
