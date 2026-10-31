@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@400&display=swap">
-<link rel="stylesheet" href="assets/site.css?v=20261027d">
+<link rel="stylesheet" href="assets/site.css?v=20261031a">
 </head>
 <body>
 <a class="skip" href="#main">본문으로</a>
@@ -37,12 +37,21 @@
 
 <section class="hero" data-hero aria-label="대표 작업 사진">
   <div class="slide on" data-tag="STONE LANTERN" data-name="석등 무드등">
-    <img src="img/hero_hanok.jpg" alt="한옥 마루 앞에 불을 켠 석등 무드등 세 개" width="1800" height="1800">
+    <picture>
+      <source media="(min-width: 900px)" srcset="img/hero_lant_d.jpg">
+      <img src="img/hero_lant_m.jpg" alt="가을 나무 앞에 불을 켠 세 가지 색 석등 무드등" width="1200" height="1600">
+    </picture>
   </div>
   <div class="slide" data-tag="MEDAL CASE" data-name="러닝 메달케이스">
     <picture>
       <source media="(min-width: 900px)" srcset="img/hex_hero_d.jpg">
       <img src="img/hex_hero_m.jpg" alt="메달을 넣고 연 HEXATRAIL 메달케이스" width="1200" height="1600" loading="lazy">
+    </picture>
+  </div>
+  <div class="slide" data-tag="HAECHI GATE" data-name="광화수문 라이트박스">
+    <picture>
+      <source media="(min-width: 900px)" srcset="img/hero_gw_d.jpg">
+      <img src="img/hero_gw_m.jpg" alt="광화문 앞에 놓은 세 가지 색 광화수문 라이트박스" width="1200" height="1600" loading="lazy">
     </picture>
   </div>
   <div class="foot">
@@ -54,6 +63,7 @@
     <div class="dots">
       <button type="button" aria-label="석등 무드등 사진 보기" aria-current="true"><span></span></button>
       <button type="button" aria-label="메달케이스 사진 보기" aria-current="false"><span></span></button>
+      <button type="button" aria-label="광화수문 사진 보기" aria-current="false"><span></span></button>
     </div>
   </div>
 </section>
@@ -75,7 +85,7 @@
           <p class="desc">고려 석등인 나주 서문 석등의 비례를 3D로 다시 그리고, 손으로 떼어 내는 자석 결합 화사석과 받침 속 배선·USB 전원 구조를 설계했습니다. 샘플을 여덟 번 고쳐 출력한 뒤 제품으로 완성했습니다.</p>
           <a class="more" href="boneul/">→ 자세히 보기</a>
         </div>
-        <div class="pic"><img src="img/lant_colors.jpg" alt="세 가지 색의 석등 무드등" width="1400" height="1213" loading="lazy"></div>
+        <div class="pic"><img src="img/lant_case.jpg" alt="광화문 성벽 앞에 불을 켠 세 가지 색 석등 무드등" width="1400" height="1050" loading="lazy"></div>
       </div>
     </section>
 
@@ -105,7 +115,7 @@
           <p class="desc">광화문 홍예문을 실제 비례로 옮기고, 그 안에 해치와 숨은 LED를 넣었습니다. 뒷판과 윗면을 한 부품으로 합쳐 나사 4개로 닫고 LED가 흔들리지 않게 잡는 구조를 설계했습니다. 2026 서울시 굿즈 공모전 서류심사를 통과했습니다.</p>
           <a class="more" href="gwanghwa/">→ 자세히 보기</a>
         </div>
-        <div class="pic"><img src="img/gw_case.jpg" alt="불을 켠 광화수문 라이트박스 3D 렌더" width="1200" height="1200" loading="lazy"></div>
+        <div class="pic"><img src="img/gw_case_real.jpg" alt="광화문광장에서 불을 켠 세 가지 색 광화수문 라이트박스" width="1400" height="1050" loading="lazy"></div>
       </div>
     </section>
   </div>
