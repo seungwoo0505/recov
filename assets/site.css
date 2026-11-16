@@ -1,4 +1,4 @@
-/* RECOV LAB 홈페이지 공통 스타일 — 검은 바탕 · 전면 사진 · 사례 중심 */
+/* RECOV LAB 홈페이지 공통 스타일 — 검은 바탕 · 전면 사진 · 사진 목록에서 상세로 */
 :root {
   --bg: #0B0B0B;
   --text: #FFFFFF;
@@ -74,23 +74,11 @@ a:hover { color: #BDBDB8; }
 .wrap { padding: 0 var(--gutter); }
 .section { padding: 0 var(--gutter) 64px; }
 .split { display: grid; grid-template-columns: var(--col); gap: var(--gap); }
-.intro { padding: 44px var(--gutter) 56px; display: flex; flex-direction: column; gap: 16px; }
-.intro .lead { font-size: 22px; line-height: 1.55; font-weight: 500; letter-spacing: -.02em; max-width: 920px; }
-.intro .motto { font-size: 13px; color: var(--sub); }
 .dot { display: inline-block; width: 6px; height: 6px; margin-left: 6px; border-radius: 50%; background: var(--accent); vertical-align: middle; }
 
-/* 사례 */
-.case { padding: 0 0 64px; }
-.case .text { padding: 0 var(--gutter) 20px; display: flex; flex-direction: column; gap: 10px; }
-.case h2, .about h2, .detail-title h1 { font-size: 52px; line-height: 1; letter-spacing: -.01em; }
-.case .sub { font-size: 16px; font-weight: 700; }
-.case p.desc { margin-top: 6px; font-size: 15px; line-height: 1.75; color: var(--body); }
-.case .more { margin-top: 4px; padding: 10px 0; font-size: 14px; font-weight: 500; align-self: flex-start; }
-.case .pic img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+.detail-title h1 { font-size: 52px; line-height: 1; letter-spacing: -.01em; }
+.x-unused { margin-top: 6px; font-size: 15px; line-height: 1.75; color: var(--body); }
 
-/* 소개 */
-.about { padding: 0 var(--gutter) 64px; display: flex; flex-direction: column; gap: 12px; }
-.about p.desc { margin-top: 6px; font-size: 15px; line-height: 1.75; color: var(--body); }
 .facts { margin-top: 8px; display: grid; grid-template-columns: 56px 1fr; row-gap: 8px; font-size: 14px; }
 .facts dt { color: var(--sub); }
 .services { list-style: none; margin-top: 16px; border-top: 1px solid var(--line); }
@@ -113,10 +101,6 @@ a:hover { color: #BDBDB8; }
 .btn.wide { align-self: stretch; justify-content: center; }
 
 /* 서비스 */
-.svc-teaser { padding: 0 var(--gutter) 64px; display: flex; flex-direction: column; gap: 12px; }
-.svc-teaser h2, .about h2 { font-size: 52px; line-height: 1; letter-spacing: -.01em; }
-.svc-teaser .services { margin-top: 16px; }
-.svc-teaser .more { display: inline-block; margin-top: 8px; padding: 10px 0; font-size: 14px; font-weight: 500; }
 .ticks { list-style: none; margin-top: 6px; display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--text); }
 .ticks li { padding-left: 16px; position: relative; }
 .ticks li::before { content: ""; position: absolute; left: 0; top: .72em; width: 7px; height: 1px; background: var(--sub); }
@@ -190,21 +174,8 @@ a:hover { color: #BDBDB8; }
   .detail-hero { height: 680px; }
   .label { font-size: 15px; }
 
-  .intro { padding: 88px var(--gutter) 104px; gap: 20px; }
-  .intro .lead { font-size: 34px; line-height: 1.5; }
-  .intro .motto { font-size: 15px; }
 
-  .case, .about, .contact { padding: 0 var(--gutter) 120px; }
-  .case { display: flex; flex-direction: column; gap: 24px; }
-  .case .wrap { padding: 0; }
-  .case .split { align-items: start; }
-  .case .text { padding: 0; gap: 14px; }
-  .case h2, .about h2 { font-size: 68px; }
-  .case .sub { font-size: 18px; }
-  .case p.desc, .about p.desc { font-size: 16px; }
-  .case .pic img { aspect-ratio: 760 / 520; }
-  .about { gap: 24px; }
-  .about .split { align-items: start; }
+  .contact { padding: 0 var(--gutter) 120px; }
   .facts { grid-template-columns: 64px 1fr; font-size: 15px; }
   .services { margin-top: 0; }
   .services li { display: grid; grid-template-columns: 220px 1fr; padding: 22px 0; }
@@ -241,10 +212,6 @@ a:hover { color: #BDBDB8; }
   .next .to .cond { font-size: 32px; }
   .detail-contact { padding-top: 96px; }
 
-  .svc-teaser { padding: 0 var(--gutter) 120px; gap: 24px; }
-  .svc-teaser h2 { font-size: 68px; }
-  .svc-teaser .split, .about .split { align-items: start; }
-  .svc-teaser .services { margin-top: 0; }
   .ticks { font-size: 15px; margin-top: 10px; }
   .process { padding: 120px var(--gutter) 0; display: grid; grid-template-columns: var(--col); gap: var(--gap); align-items: start; }
   .process ol { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 32px; border-top: 0; }
@@ -260,4 +227,128 @@ a:hover { color: #BDBDB8; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .hero .slide { transition: none; }
+}
+
+/* ════════════════════════════════════════════════════════════════
+   2026-11-16 개편
+   첫 화면은 대표 사진만 넘어가고, Work 는 사진과 이름만 있는 목록.
+   작업 설명은 각 상세 페이지에서만 보여 준다.
+   ════════════════════════════════════════════════════════════════ */
+:root { --hair: rgba(255, 255, 255, .16); --ease: cubic-bezier(.2, .7, .2, 1); }
+::selection { background: #fff; color: #0B0B0B; }
+a { transition: color .25s ease; }
+.eyebrow {
+  font-family: "Antonio", "Arial Narrow", sans-serif; font-weight: 400;
+  font-size: 12px; line-height: 1; letter-spacing: .24em; text-transform: uppercase; color: var(--sub);
+}
+
+/* 머리: 작고 넓게 띄운 대문자 메뉴 */
+.site-header nav { gap: 18px; }
+.site-header nav a { font-size: 11px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; }
+.site-header nav a[aria-current="page"] { font-weight: 500; box-shadow: 0 1px 0 #fff; }
+.site-header nav .ask { letter-spacing: .04em; }
+
+/* 첫 화면: 화면을 꽉 채운 대표 사진. 사진을 누르면 그 작업의 상세로 간다. */
+.hero.home { height: 100vh; height: 100svh; min-height: 560px; }
+.hero.home .slide { display: block; visibility: hidden; transition: opacity 1.4s ease, visibility 0s linear 1.4s; }
+.hero.home .slide.on { visibility: visible; transition: opacity 1.4s ease, visibility 0s; }
+.hero.home .slide img { transform: scale(1.06); transition: transform 8s linear; }
+.hero.home .slide.on img { transform: scale(1); }
+.hero.home::after {
+  background: linear-gradient(180deg, rgba(0,0,0,.5) 0%, rgba(0,0,0,0) 26%, rgba(0,0,0,0) 52%, rgba(0,0,0,.72) 100%);
+}
+.hero.home .foot { align-items: flex-end; padding-bottom: 22px; pointer-events: none; }
+.hero.home .foot .dots, .hero.home .foot .cap a { pointer-events: auto; }
+.hero.home .cap { gap: 10px; }
+.hero.home .cap .count { font-size: 12px; letter-spacing: .24em; color: #E2E2DE; font-variant-numeric: tabular-nums; }
+.hero.home .cap .tag { font-size: 30px; line-height: 1; letter-spacing: .02em; color: #fff; }
+.hero.home .cap .name { font-size: 13px; font-weight: 400; color: #E2E2DE; }
+.hero.home .dots { gap: 6px; }
+.hero.home .dots button { width: 28px; }
+.hero.home .dots span { width: 28px; height: 1px; border-radius: 0; background: rgba(255,255,255,.4); transition: background .3s ease, height .3s ease; }
+.hero.home .dots button[aria-current="true"] span { height: 2px; background: #fff; }
+
+/* Work: 사진 + 이름. 설명은 없다. */
+.works { padding: 72px var(--gutter) 0; }
+.sec-head { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 18px; }
+.tiles { list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); gap: 44px; }
+.tile { display: block; }
+.tile .ph { overflow: hidden; background: #161616; aspect-ratio: 4 / 3; }
+.tile .ph img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease), opacity .6s ease; }
+.tile .meta { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; align-items: baseline; column-gap: 8px; padding-top: 14px; }
+.tile .no { font-size: 12px; letter-spacing: .12em; color: var(--sub); font-variant-numeric: tabular-nums; }
+.tile .t { font-size: 20px; line-height: 1.1; letter-spacing: .03em; }
+.tile .k { font-size: 12px; color: var(--sub); text-align: right; }
+.tile:hover { color: inherit; }
+.tile:hover .ph img, .tile:focus-visible .ph img { transform: scale(1.035); }
+.tile .t span { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .5s var(--ease); padding-bottom: 3px; }
+.tile:hover .t span, .tile:focus-visible .t span { background-size: 100% 1px; }
+
+/* 아래 구역 공통: 가는 선 위에 작은 이름표, 오른쪽에 내용 */
+.home-sec { margin: 96px var(--gutter) 0; padding-top: 22px; border-top: 1px solid var(--hair); display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 28px; }
+.home-sec .lead { font-size: 21px; line-height: 1.6; font-weight: 300; letter-spacing: -.02em; max-width: 21em; }
+.home-sec .desc { margin-top: 20px; font-size: 15px; line-height: 1.8; color: var(--body); max-width: 36em; }
+.home-sec .facts { margin-top: 28px; grid-template-columns: 64px 1fr; row-gap: 10px; }
+.home-sec .services { margin-top: 0; border-top-color: var(--hair); }
+.home-sec .services li { border-bottom-color: var(--hair); padding: 18px 0; }
+.home-sec .services b { font-weight: 500; }
+.more { display: inline-block; margin-top: 18px; padding: 8px 0; font-size: 13px; letter-spacing: .02em; box-shadow: 0 1px 0 var(--hair); transition: box-shadow .3s ease, color .25s ease; }
+.more:hover { color: #fff; box-shadow: 0 1px 0 #fff; }
+.home-sec.cta { margin-bottom: 88px; }
+.home-sec.cta h2 { font-size: 26px; line-height: 1.4; font-weight: 300; letter-spacing: -.03em; }
+.home-sec.cta p { margin-top: 16px; font-size: 15px; line-height: 1.8; color: var(--body); max-width: 30em; }
+.home-sec.cta .btn { margin-top: 28px; }
+.btn { font-weight: 500; letter-spacing: .01em; transition: background .25s ease, color .25s ease; }
+.btn:hover { background: #fff; color: #0B0B0B; }
+
+/* 상세 · 서비스 페이지도 같은 결로: 작은 대문자 이름표, 가는 선, 가벼운 제목 */
+.label { font-family: "Antonio", "Arial Narrow", sans-serif; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; }
+.detail-title .back { letter-spacing: .04em; transition: color .25s ease; }
+.detail-title .sub { font-weight: 500; }
+.specs, .specs div, .process ol, .process li, .faq dl, .faq dl div, .next .to { border-color: var(--hair); }
+.step h2 { font-weight: 500; }
+.step .no { letter-spacing: .16em; font-size: 13px; }
+.contact h2 { font-weight: 300; }
+.faq dt, .process li b { font-weight: 500; }
+.next .to .cond { letter-spacing: .03em; }
+
+/* 스크롤하면 조용히 떠오른다 (스크립트가 켜 줄 때만) */
+.js-reveal .rv { opacity: 0; transform: translateY(18px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+.js-reveal .rv.in { opacity: 1; transform: none; }
+
+@media (min-width: 900px) {
+  .site-header nav { gap: 34px; }
+  .site-header nav a { font-size: 12px; }
+  .site-header .ask { padding: 9px 18px; border-color: rgba(255,255,255,.7); transition: background .25s ease, color .25s ease; }
+  .site-header .ask:hover { background: #fff; color: #0B0B0B; }
+  .eyebrow, .label { font-size: 13px; }
+  .hero.home { height: 100vh; min-height: 620px; }
+  .hero.home .foot { padding-bottom: 34px; }
+  .hero.home .cap { gap: 14px; }
+  .hero.home .cap .tag { font-size: 52px; }
+  .hero.home .cap .name { font-size: 15px; }
+  .hero.home .dots button { width: 44px; }
+  .hero.home .dots span { width: 44px; }
+  .works { padding-top: 128px; }
+  .sec-head { padding-bottom: 28px; }
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; row-gap: 84px; }
+  .tile .meta { grid-template-columns: 40px minmax(0, 1fr) auto; padding-top: 18px; }
+  .tile .t { font-size: 26px; }
+  .tile .k { font-size: 14px; }
+  .home-sec { margin-top: 168px; padding-top: 28px; grid-template-columns: var(--col); column-gap: var(--gap); }
+  .home-sec .lead { font-size: 32px; line-height: 1.55; }
+  .home-sec .desc { font-size: 16px; margin-top: 28px; }
+  .home-sec .facts { margin-top: 40px; grid-template-columns: 80px 1fr; font-size: 15px; }
+  .home-sec .services li { padding: 24px 0; }
+  .more { font-size: 14px; margin-top: 24px; }
+  .home-sec.cta { margin-bottom: 136px; }
+  .home-sec.cta h2 { font-size: 40px; line-height: 1.35; }
+  .home-sec.cta p { font-size: 17px; margin-top: 22px; }
+  .home-sec.cta .btn { margin-top: 36px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero.home .slide, .hero.home .slide.on { transition: none; }
+  .hero.home .slide img, .tile .ph img { transform: none; transition: none; }
+  .js-reveal .rv { opacity: 1; transform: none; transition: none; }
 }
