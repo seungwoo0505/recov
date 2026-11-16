@@ -352,3 +352,73 @@ a { transition: color .25s ease; }
   .hero.home .slide img, .tile .ph img { transform: none; transition: none; }
   .js-reveal .rv { opacity: 1; transform: none; transition: none; }
 }
+
+/* ════════════════════════════════════════════════════════════════
+   문의 양식 (메일 쓰기 버튼 대신). 가는 밑줄 입력 칸 · 작은 이름표.
+   글자 16px 아래로 내리지 않는다 — 아이폰이 입력할 때 화면을 키운다.
+   ════════════════════════════════════════════════════════════════ */
+.ask-form { margin-top: 30px; display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 24px; max-width: 640px; }
+.ask-form .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.ask-form fieldset { border: 0; min-width: 0; }
+.ask-form legend, .ask-form .f-l { display: block; font-size: 12px; line-height: 1.4; letter-spacing: .04em; color: var(--sub); }
+.ask-form legend { padding: 0; margin-bottom: 10px; }
+.ask-form .f-l i { font-style: normal; margin-left: 6px; font-size: 11px; color: #FF8A73; }
+.ask-form .f-row { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.ask-form input[type="text"], .ask-form input[type="email"], .ask-form textarea {
+  width: 100%; min-width: 0; padding: 8px 0 11px; border: 0; border-bottom: 1px solid var(--hair); border-radius: 0;
+  background: transparent; color: var(--text); font: inherit; font-size: 16px; line-height: 1.6;
+  -webkit-appearance: none; appearance: none; transition: border-color .25s ease;
+}
+.ask-form textarea { display: block; min-height: 104px; resize: vertical; }
+.ask-form ::placeholder { color: #70706B; opacity: 1; }
+.ask-form input[type="text"]:hover, .ask-form input[type="email"]:hover, .ask-form textarea:hover { border-bottom-color: rgba(255, 255, 255, .4); }
+.ask-form input[type="text"]:focus, .ask-form input[type="email"]:focus, .ask-form textarea:focus { outline: none; border-bottom-color: #fff; box-shadow: 0 1px 0 #fff; }
+.ask-form .f-two { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 24px; }
+.ask-form .f-kinds { display: flex; flex-wrap: wrap; gap: 8px; }
+.ask-form .chip { position: relative; cursor: pointer; }
+.ask-form .chip input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.ask-form .chip span {
+  display: inline-flex; align-items: center; min-height: 42px; padding: 0 18px; border: 1px solid var(--hair); border-radius: 999px;
+  font-size: 14px; color: var(--body); transition: border-color .25s ease, color .25s ease, background .25s ease;
+}
+.ask-form .chip:hover span { border-color: rgba(255, 255, 255, .5); }
+.ask-form .chip input:checked + span { border-color: #fff; color: #fff; background: rgba(255, 255, 255, .1); }
+.ask-form .chip input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 3px; }
+.ask-form .f-agree { display: grid; grid-template-columns: 20px minmax(0, 1fr); column-gap: 10px; row-gap: 4px; align-items: start; font-size: 13px; line-height: 1.6; color: var(--body); cursor: pointer; }
+.ask-form .f-agree input {
+  -webkit-appearance: none; appearance: none; width: 18px; height: 18px; margin: 2px 0 0; cursor: pointer;
+  display: grid; place-content: center; border: 1px solid rgba(255, 255, 255, .55); border-radius: 3px; background: transparent;
+  transition: background .2s ease, border-color .2s ease;
+}
+.ask-form .f-agree input:checked { background: #fff; border-color: #fff; }
+.ask-form .f-agree input:checked::after { content: ""; width: 9px; height: 5px; border-left: 2px solid #0B0B0B; border-bottom: 2px solid #0B0B0B; transform: translateY(-1px) rotate(-45deg); }
+.ask-form .f-agree.bad input { border-color: #FF8A73; }
+.ask-form .f-agree .f-err { grid-column: 2; }
+.ask-form .f-more { padding: 0 2px; border: 0; background: none; color: var(--sub); font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.ask-form .f-more:hover { color: #fff; }
+.ask-form p.f-note { margin: -12px 0 0 30px; max-width: none; font-size: 12px; line-height: 1.75; color: var(--sub); }
+.ask-form .f-send { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; }
+.ask-form .f-send .btn { margin-top: 0; font-family: inherit; cursor: pointer; background: #fff; color: #0B0B0B; }
+.ask-form .f-send .btn:hover { background: #E2E2DE; }
+.ask-form .f-send .btn[disabled] { opacity: .55; cursor: default; }
+.ask-form p.f-status { margin: 0; max-width: none; font-size: 13px; line-height: 1.6; color: var(--sub); }
+.ask-form p.f-status.err { color: #FF8A73; }
+.ask-form p.f-status a { text-decoration: underline; text-underline-offset: 3px; }
+.ask-form .bad input[type="text"], .ask-form .bad input[type="email"], .ask-form .bad textarea { border-bottom-color: #FF8A73; }
+.ask-form .f-err { font-size: 12px; line-height: 1.5; color: #FF8A73; }
+.ask-form p.f-mail { margin: 0; max-width: none; font-size: 13px; line-height: 1.7; color: var(--sub); }
+.ask-form p.f-mail a { color: var(--body); box-shadow: 0 1px 0 var(--hair); transition: box-shadow .3s ease, color .25s ease; }
+.ask-form p.f-mail a:hover { color: #fff; box-shadow: 0 1px 0 #fff; }
+.ask-done { margin-top: 30px; padding: 28px 0 30px; border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); max-width: 640px; outline: none; }
+.ask-done b { display: block; font-size: 20px; font-weight: 500; letter-spacing: -.02em; }
+.ask-done p { margin-top: 10px; max-width: none; font-size: 15px; line-height: 1.8; color: var(--body); }
+.contact .ask-form, .contact .ask-done { margin-top: 18px; }
+
+@media (min-width: 900px) {
+  .ask-form { margin-top: 40px; row-gap: 28px; }
+  .ask-form .f-two { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; }
+  .ask-form legend, .ask-form .f-l { font-size: 13px; }
+  .ask-done { margin-top: 40px; }
+  .contact .ask-form, .contact .ask-done { margin-top: 24px; }
+  .contact .split.ask-top { align-items: start; }
+}

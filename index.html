@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@400&display=swap">
-<link rel="stylesheet" href="assets/site.css?v=20261116b">
+<link rel="stylesheet" href="assets/site.css?v=20261116c">
 </head>
 <body>
 <a class="skip" href="#main">본문으로</a>
@@ -141,7 +141,35 @@
     <div>
       <h2 id="contact-h">만들고 싶은 제품이<br>있으신가요?</h2>
       <p>스케치 한 장, 참고 사진 하나로 시작할 수 있습니다. 만들고 싶은 것과 크기, 수량을 보내 주세요.</p>
-      <a class="btn" href="mailto:boneul_official@naver.com?subject=%5B%EC%84%A4%EA%B3%84%20%EC%9D%98%EB%A2%B0%5D%20&amp;body=%EC%9B%90%ED%95%98%EB%8A%94%20%EC%9E%91%EC%97%85%28%EC%A0%9C%ED%92%88%20%EB%94%94%EC%9E%90%EC%9D%B8%20/%20%EC%83%98%ED%94%8C%20%EC%A0%9C%EC%9E%91%29%3A%0A%0A%EB%A7%8C%EB%93%A4%EA%B3%A0%20%EC%8B%B6%EC%9D%80%20%EA%B2%83%3A%0A%0A%ED%81%AC%EA%B8%B0%C2%B7%EC%88%98%EB%9F%89%3A%0A%0A%EC%96%B8%EC%A0%9C%EA%B9%8C%EC%A7%80%3A%0A%0A%EC%B0%B8%EA%B3%A0%20%EC%9E%90%EB%A3%8C%28%EC%82%AC%EC%A7%84%C2%B7%EC%8A%A4%EC%BC%80%EC%B9%98%C2%B7%EB%A7%81%ED%81%AC%29%3A%0A">의뢰 메일 쓰기</a>
+      <form class="ask-form" data-ask action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="98fcffee-77f8-4e83-a147-c5b293c521f8">
+        <input type="hidden" name="subject" value="[설계 의뢰] recovlab.kr 문의">
+        <input type="hidden" name="from_name" value="RECOV LAB 홈페이지">
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <fieldset>
+          <legend>원하는 작업</legend>
+          <div class="f-kinds">
+            <label class="chip"><input type="checkbox" name="kind" value="제품 디자인"><span>제품 디자인</span></label>
+            <label class="chip"><input type="checkbox" name="kind" value="샘플 제작"><span>샘플 제작</span></label>
+          </div>
+        </fieldset>
+        <label class="f-row"><span class="f-l">만들고 싶은 것<i>필수</i></span>
+          <textarea name="what" rows="4" required placeholder="어떤 물건인지, 어디에 쓰는지 편하게 적어 주세요"></textarea></label>
+        <div class="f-two">
+          <label class="f-row"><span class="f-l">크기 · 수량</span><input type="text" name="size" placeholder="예: 손바닥 크기, 샘플 1개"></label>
+          <label class="f-row"><span class="f-l">언제까지</span><input type="text" name="due" placeholder="예: 12월 중순"></label>
+        </div>
+        <label class="f-row"><span class="f-l">참고 링크</span><input type="text" name="ref" inputmode="url" placeholder="비슷한 제품이나 사진이 있는 주소"></label>
+        <div class="f-two">
+          <label class="f-row"><span class="f-l">이름 또는 회사</span><input type="text" name="name" autocomplete="name"></label>
+          <label class="f-row"><span class="f-l">답변 받을 메일<i>필수</i></span><input type="email" name="email" required autocomplete="email" inputmode="email" placeholder="name@example.com"></label>
+        </div>
+        <label class="f-agree"><input type="checkbox" name="agree" value="동의" required>
+          <span>문의에 답하기 위해 이름 · 메일 주소 · 문의 내용을 받는 데 동의합니다. <button type="button" class="f-more" aria-expanded="false">자세히</button></span></label>
+        <p class="f-note" hidden>받는 것: 이름(회사) · 메일 주소 · 문의 내용 / 쓰는 곳: 문의 답변과 상담 / 보관: 상담이 끝나면 지웁니다. 양식을 보내는 데 Web3Forms(해외 서비스)를 씁니다. 동의하지 않으시면 아래 메일 주소로 바로 보내 주세요.</p>
+        <div class="f-send"><button class="btn fill" type="submit">의뢰 보내기</button><p class="f-status" role="status" aria-live="polite"></p></div>
+        <p class="f-mail">사진 · 스케치 파일은 답변 메일에서 받습니다. 메일이 편하시면 <a href="mailto:boneul_official@naver.com?subject=%5B%EC%84%A4%EA%B3%84%20%EC%9D%98%EB%A2%B0%5D%20&amp;body=%EC%9B%90%ED%95%98%EB%8A%94%20%EC%9E%91%EC%97%85%28%EC%A0%9C%ED%92%88%20%EB%94%94%EC%9E%90%EC%9D%B8%20/%20%EC%83%98%ED%94%8C%20%EC%A0%9C%EC%9E%91%29%3A%0A%0A%EB%A7%8C%EB%93%A4%EA%B3%A0%20%EC%8B%B6%EC%9D%80%20%EA%B2%83%3A%0A%0A%ED%81%AC%EA%B8%B0%C2%B7%EC%88%98%EB%9F%89%3A%0A%0A%EC%96%B8%EC%A0%9C%EA%B9%8C%EC%A7%80%3A%0A%0A%EC%B0%B8%EA%B3%A0%20%EC%9E%90%EB%A3%8C%28%EC%82%AC%EC%A7%84%C2%B7%EC%8A%A4%EC%BC%80%EC%B9%98%C2%B7%EB%A7%81%ED%81%AC%29%3A%0A">boneul_official@naver.com</a></p>
+      </form>
     </div>
   </section>
 </main>
@@ -155,6 +183,7 @@
 </footer>
 
 <script src="assets/hero.js?v=20261116a"></script>
+<script src="assets/ask.js?v=20261116c" defer></script>
 <script data-goatcounter="https://recovlab.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
