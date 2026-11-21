@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gallery · RECOV LAB</title>
+<meta name="description" content="RECOV LAB 작업을 곡면 벽 전시장에서 둘러봅니다.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#EEECE7">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;600&display=swap">
+<style>
+  :root { --bg:#EEECE7; --ink:#141414; --sub:#77746D; --line:#D6D3CC; --accent:#D8472B; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; height:100%; background:var(--bg); color:var(--ink); font-family:"Pretendard Variable",Pretendard,system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+  body { overflow:hidden; }
+  a { color:inherit; }
+  .cond { font-family:Antonio,"Pretendard Variable",sans-serif; letter-spacing:.02em; text-transform:uppercase; }
+
+  header { position:fixed; z-index:5; top:0; left:0; right:0; display:flex; align-items:center; justify-content:space-between; padding:22px 32px; pointer-events:none; }
+  header > * { pointer-events:auto; }
+  header img { height:20px; width:auto; display:block; }
+  header nav { display:flex; gap:22px; font-size:14px; }
+  header nav a { text-decoration:none; color:var(--sub); }
+  header nav a:hover, header nav a[aria-current] { color:var(--ink); }
+
+  #stage { position:fixed; inset:0; }
+  #stage canvas { display:block; width:100%; height:100%; cursor:grab; }
+  #stage canvas.grab { cursor:grabbing; }
+  #stage canvas.hot { cursor:pointer; }
+
+  .cap { position:fixed; z-index:4; left:0; right:0; bottom:44px; text-align:center; pointer-events:none; }
+  .cap .tag { font-size:30px; line-height:1; margin:0; }
+  .cap .name { margin:10px 0 0; font-size:15px; color:var(--sub); }
+  .cap a { pointer-events:auto; display:inline-block; margin-top:16px; font-size:14px; text-decoration:none; border-bottom:1px solid currentColor; padding-bottom:2px; }
+  .cap a:hover { color:var(--accent); }
+  .count { position:fixed; z-index:4; right:32px; bottom:44px; font-size:14px; color:var(--sub); }
+  .hint { position:fixed; z-index:4; left:32px; bottom:44px; font-size:13px; color:var(--sub); transition:opacity .6s; }
+  .arrows { position:fixed; z-index:4; right:32px; top:50%; display:flex; flex-direction:column; gap:8px; transform:translateY(-50%); }
+  .arrows button { width:40px; height:40px; border-radius:50%; border:1px solid var(--line); background:rgba(255,255,255,.6); color:var(--ink); font-size:16px; cursor:pointer; }
+  .arrows button:hover { border-color:var(--ink); }
+  .cap, .count { transition:opacity .25s; }
+  .fade { opacity:0; }
+
+  /* 휴대폰·3D 미지원: 평범한 목록 */
+  #list { display:none; padding:84px 20px 40px; }
+  #list h1 { font-size:13px; font-weight:500; color:var(--sub); margin:0 0 16px; }
+  #list ul { list-style:none; margin:0; padding:0; display:grid; gap:28px; }
+  #list a { text-decoration:none; display:block; }
+  #list img { width:100%; aspect-ratio:4/3; object-fit:cover; display:block; background:#ddd; }
+  #list .t { margin:10px 0 2px; font-size:20px; }
+  #list .k { font-size:14px; color:var(--sub); }
+  body.flat { overflow:auto; }
+  body.flat header { background:var(--bg); padding:18px 20px; }
+  body.flat #list { display:block; }
+  body.flat #stage, body.flat .cap, body.flat .count, body.flat .hint, body.flat .arrows { display:none; }
+  .sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+</style>
+</head>
+<body>
+<header>
+  <a href="../../" aria-label="RECOV LAB 처음으로"><img src="../../logo_h.svg" alt="RECOV LAB" width="101" height="20"></a>
+  <nav aria-label="주요 메뉴"><a href="../../#work">Work</a><a href="./" aria-current="page">Gallery</a><a href="../../service/">Service</a></nav>
+</header>
+
+<div id="stage" aria-hidden="true"></div>
+<div class="cap" id="cap" aria-live="polite"><p class="tag cond" id="capTag"></p><p class="name" id="capName"></p><a id="capLink" href="#">작업 보기 →</a></div>
+<div class="count cond" id="count"></div>
+<div class="hint" id="hint">스크롤하거나 끌어서 둘러보세요 · 작품을 누르면 자세히</div>
+<div class="arrows"><button type="button" id="prev" aria-label="이전 작업">↑</button><button type="button" id="next" aria-label="다음 작업">↓</button></div>
+
+<section id="list" aria-labelledby="listH"><h1 id="listH">Selected Work</h1><ul id="listUl"></ul></section>
+
+<script>
+// 전시할 작업 (홈페이지 Work 목록과 같은 8건 · 모두 공개된 작업)
+window.WORKS = [
+  { href:"../../boneul/",    img:"../../img/lant_case.jpg?v=4",      tag:"Stone Lantern", name:"나주 서문 석등 무드등" },
+  { href:"../../hexatrail/", img:"../../img/hex_hero_d.jpg?v=2",     tag:"Medal Case",    name:"러닝 메달케이스" },
+  { href:"../../gwanghwa/",  img:"../../img/gw_case_real.jpg?v=4",   tag:"Haechi Gate",   name:"광화수문 라이트박스", badge:"제2회 서울 브랜드 굿즈 공모 선정" },
+  { href:"../../fitholder/", img:"../../img/fit_case_web.jpg?v=1",   tag:"Fit Holder",    name:"차량용 맞춤 홀더 설계 도구" },
+  { href:"../../shuttle/",   img:"../../img/shuttle_case.jpg?v=1",   tag:"Space Shuttle", name:"우주왕복선 무드등" },
+  { href:"../../obang/",     img:"../../img/obang_case.jpg?v=1",     tag:"Obangdeung",    name:"오방등 무드등" },
+  { href:"../../forklift/",  img:"../../img/forklift_case.jpg?v=2",  tag:"Forklift Sim",  name:"지게차 교육 시뮬레이터 콕핏" },
+  { href:"../../gatemedal/", img:"../../img/gatemedal_case.jpg?v=2", tag:"Medal Light",   name:"메달 거치 무드등" }
+];
+// 목록(휴대폰·3D 미지원용)은 언제나 만들어 둔다
+(function(){
+  var ul=document.getElementById('listUl');
+  WORKS.forEach(function(w,i){
+    var li=document.createElement('li');
+    li.innerHTML='<a href="'+w.href+'"><img loading="lazy" src="'+w.img+'" alt=""><p class="t cond">'+String(i+1).padStart(2,'0')+' '+w.tag+'</p><span class="k">'+w.name+'</span></a>';
+    ul.appendChild(li);
+  });
+  var gl=false; try{ var c=document.createElement('canvas'); gl=!!(c.getContext('webgl2')||c.getContext('webgl')); }catch(e){}
+  if(!gl || window.matchMedia('(max-width: 759px)').matches) document.body.classList.add('flat');
+})();
+</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js"}}</script>
+<script type="module">
+import * as THREE from 'three';
+if (document.body.classList.contains('flat')) throw 0;
+
+const W = window.WORKS;
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const stage = document.getElementById('stage');
+
+// ── 장면: 안쪽에서 보는 곡면 벽 (반지름 R), 카메라는 벽 반대쪽에 물러서서 바라본다
+const R = 9, WALL_H = 6, EYE = 1.55;
+const FW = 3.0, FH = FW * 3 / 4;          // 작품 4:3
+const STEP = (FW + 1.5) / R;              // 작품 사이 각도 (rad)
+const START = 0.95;                         // 첫 작품 앞에 소개 벽 한 칸
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.NoToneMapping;
+stage.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+const BG = new THREE.Color('#F3F2EE');
+scene.background = BG;
+scene.fog = new THREE.Fog(BG, 12, 26);
+
+const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 60);
+
+scene.add(new THREE.HemisphereLight(0xffffff, 0xe6e1d8, 1.2));
+const sun = new THREE.DirectionalLight(0xffffff, 0.6); sun.position.set(0, 8, 0); scene.add(sun);
+
+// 벽: 원통 안쪽 면 (전체 둘레의 일부만)
+const SPAN = START + W.length * STEP + 0.9;
+const wall = new THREE.Mesh(
+  new THREE.CylinderGeometry(R, R, WALL_H, 160, 1, true, -SPAN - 0.6, SPAN + 1.2),
+  new THREE.MeshLambertMaterial({ color: 0xF3F2EE, emissive: 0xF3F2EE, emissiveIntensity: 0.55, side: THREE.BackSide })
+);
+wall.position.y = WALL_H / 2; scene.add(wall);
+// 바닥: 은은한 반사 느낌의 밝은 회색
+const floor = new THREE.Mesh(new THREE.CircleGeometry(R + 0.01, 128), new THREE.MeshLambertMaterial({ color: 0xE2DFD8, emissive: 0xE2DFD8, emissiveIntensity: 0.45 }));
+floor.rotation.x = -Math.PI / 2; scene.add(floor);
+// 벽과 바닥이 만나는 부드러운 그늘
+const skirtTex = (() => { const c = document.createElement('canvas'); c.width = 4; c.height = 64; const g = c.getContext('2d'); const gr = g.createLinearGradient(0, 0, 0, 64); gr.addColorStop(0, 'rgba(0,0,0,0)'); gr.addColorStop(1, 'rgba(0,0,0,0.10)'); g.fillStyle = gr; g.fillRect(0, 0, 4, 64); return new THREE.CanvasTexture(c); })();
+const skirt = new THREE.Mesh(new THREE.CylinderGeometry(R - 0.005, R - 0.005, 0.7, 160, 1, true, -SPAN - 0.6, SPAN + 1.2), new THREE.MeshBasicMaterial({ map: skirtTex, transparent: true, side: THREE.BackSide, depthWrite: false }));
+skirt.position.y = 0.35; scene.add(skirt);
+
+// 각도 θ의 벽 위치 (원통 기본 좌표: x = R sinθ, z = R cosθ)
+// 왼쪽에서 오른쪽으로 읽히도록 x를 뒤집는다
+const onWall = (th, r = R) => new THREE.Vector3(-r * Math.sin(th), 0, r * Math.cos(th));
+
+// 글씨를 캔버스로 그려 벽에 붙인다
+function textTex(lines, w = 1024, h = 512) {
+  const c = document.createElement('canvas'); c.width = w; c.height = h; const g = c.getContext('2d');
+  lines.forEach(L => { g.font = L.font; g.fillStyle = L.color || '#141414'; g.textAlign = L.align || 'left'; g.textBaseline = 'alphabetic'; g.fillText(L.text, L.x, L.y); });
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; return t;
+}
+function placeOnWall(mesh, th, y, inset) {
+  const p = onWall(th, R - inset); mesh.position.set(p.x, y, p.z); mesh.lookAt(0, y, 0);
+}
+
+await Promise.all(['600 70px Antonio','400 70px Antonio','500 44px "Pretendard Variable"','600 44px "Pretendard Variable"'].map(f => document.fonts.load(f, 'RECOV 레코브랩 0123')));
+await document.fonts.ready;
+
+// 소개 벽
+{
+  const t = textTex([
+    { text: 'RECOV LAB', font: '600 150px Antonio', x: 40, y: 190 },
+    { text: 'SELECTED WORK · 2025—2026', font: '400 44px Antonio', x: 44, y: 270, color: '#77746D' },
+    { text: '기구설계 엔지니어가 설계부터 시제품까지 직접 만듭니다.', font: '500 40px "Pretendard Variable"', x: 44, y: 370 },
+    { text: '스크롤 · 드래그 →', font: '400 34px "Pretendard Variable"', x: 44, y: 450, color: '#77746D' },
+  ]);
+  const m = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 1.7), new THREE.MeshBasicMaterial({ map: t, transparent: true, depthWrite: false }));
+  placeOnWall(m, START - STEP * 0.95, EYE + 0.15, 0.2); scene.add(m);
+}
+
+// 작품 걸기
+const loader = new THREE.TextureLoader();
+const frames = [];
+const shadowTex = (() => { const c = document.createElement('canvas'); c.width = c.height = 128; const g = c.getContext('2d'); const gr = g.createRadialGradient(64, 64, 20, 64, 64, 64); gr.addColorStop(0, 'rgba(0,0,0,0.28)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = gr; g.fillRect(0, 0, 128, 128); return new THREE.CanvasTexture(c); })();
+W.forEach((w, i) => {
+  const th = START + i * STEP;
+  const grp = new THREE.Group();
+  // 그림자
+  const sh = new THREE.Mesh(new THREE.PlaneGeometry(FW * 1.25, FH * 1.35), new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false }));
+  sh.position.set(0.04, -0.06, -0.012); grp.add(sh);
+  // 흰 액자 + 사진
+  const mat = new THREE.Mesh(new THREE.BoxGeometry(FW + 0.12, FH + 0.12, 0.05), new THREE.MeshLambertMaterial({ color: 0xFFFFFF, emissive: 0xFFFFFF, emissiveIntensity: 0.35 }));
+  mat.position.z = 0.0; grp.add(mat);
+  const tex = loader.load(w.img, t => { t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 8; });
+  const pic = new THREE.Mesh(new THREE.PlaneGeometry(FW, FH), new THREE.MeshBasicMaterial({ map: tex, toneMapped: false }));
+  pic.position.z = 0.027; grp.add(pic);
+  // 작품 옆 작은 명패
+  const lab = textTex([
+    { text: String(i + 1).padStart(2, '0'), font: '400 70px Antonio', x: 0, y: 70, color: '#D8472B' },
+    { text: w.tag.toUpperCase(), font: '600 70px Antonio', x: 110, y: 70 },
+    { text: w.name, font: '500 44px "Pretendard Variable"', x: 0, y: 150, color: '#55524C' },
+    ...(w.badge ? [{ text: w.badge, font: '600 38px "Pretendard Variable"', x: 0, y: 220, color: '#D8472B' }] : []),
+  ], 1024, 256);
+  const plate = new THREE.Mesh(new THREE.PlaneGeometry(1.7, 0.425), new THREE.MeshBasicMaterial({ map: lab, transparent: true, depthWrite: false }));
+  plate.position.set(-FW / 2 + 0.85, -FH / 2 - 0.42, 0.0); grp.add(plate);
+
+  placeOnWall(grp, th, EYE + 0.1, 0.16);
+  scene.add(grp);
+  pic.userData.i = i; mat.userData.i = i;
+  frames.push({ grp, pic, mat, th, base: grp.position.clone() });
+});
+
+// ── 카메라: 벽 중심 반대편으로 D만큼 물러서서, 보고 있는 작품 각도 yaw를 향한다
+const D = R * 0.18;
+let target = START, cur = START - (reduce ? 0 : STEP * 0.9);
+const MIN = START - STEP * 0.95, MAX = START + (W.length - 1) * STEP;
+function setCam(y) {
+  const p = onWall(y, -D); camera.position.set(p.x, EYE + 0.05, p.z);
+  const look = onWall(y, R); camera.lookAt(look.x, EYE - 0.05, look.z);
+}
+
+// ── 입력: 스크롤 · 드래그 · 화살표 · 버튼
+const clamp = v => Math.min(MAX, Math.max(MIN, v));
+let snapTimer = 0;
+const snap = () => { clearTimeout(snapTimer); snapTimer = setTimeout(() => { target = clamp(START + Math.round((target - START) / STEP) * STEP); }, 180); };
+addEventListener('wheel', e => { e.preventDefault(); target = clamp(target + (e.deltaY + e.deltaX) * 0.0016); hideHint(); snap(); }, { passive: false });
+const cv = renderer.domElement;
+let drag = null;
+cv.addEventListener('pointerdown', e => { drag = { x: e.clientX, t0: target, moved: 0 }; cv.setPointerCapture(e.pointerId); cv.classList.add('grab'); });
+cv.addEventListener('pointermove', e => {
+  if (drag) { const dx = e.clientX - drag.x; drag.moved = Math.max(drag.moved, Math.abs(dx)); target = clamp(drag.t0 - dx * 0.0032); hideHint(); }
+  hover(e);
+});
+cv.addEventListener('pointerup', e => {
+  cv.classList.remove('grab');
+  if (drag && drag.moved < 6) click(e); else snap();
+  drag = null;
+});
+const go = d => { target = clamp(START + (Math.round((target - START) / STEP) + d) * STEP); hideHint(); };
+addEventListener('keydown', e => {
+  if (['ArrowRight', 'ArrowDown', 'PageDown'].includes(e.key)) { go(1); e.preventDefault(); }
+  if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { go(-1); e.preventDefault(); }
+  if (e.key === 'Enter' && focusIdx >= 0) location.href = W[focusIdx].href;
+});
+document.getElementById('next').onclick = () => go(1);
+document.getElementById('prev').onclick = () => go(-1);
+const hint = document.getElementById('hint');
+function hideHint() { hint.style.opacity = 0; }
+
+// 작품 누르기: 가운데 작품이면 상세로, 옆 작품이면 그쪽으로 이동
+const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+const hits = frames.flatMap(f => [f.pic, f.mat]);
+function pick(e) { ndc.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight) * 2 + 1); ray.setFromCamera(ndc, camera); const h = ray.intersectObjects(hits)[0]; return h ? h.object.userData.i : -1; }
+let hot = -1;
+function hover(e) { if (drag) return; hot = pick(e); cv.classList.toggle('hot', hot >= 0); }
+function click(e) { const i = pick(e); if (i < 0) return; if (i === focusIdx) location.href = W[i].href; else target = START + i * STEP; }
+
+// ── 아래 캡션
+const capEl = document.getElementById('cap'), capTag = document.getElementById('capTag'), capName = document.getElementById('capName'), capLink = document.getElementById('capLink'), countEl = document.getElementById('count');
+let focusIdx = -2;
+function updateCap() {
+  const k = Math.round((cur - START) / STEP);
+  const i = (Math.abs(cur - (START + k * STEP)) < STEP * 0.35 && k >= 0 && k < W.length) ? k : -1;
+  if (i === focusIdx) return; focusIdx = i;
+  if (i < 0) { capEl.classList.add('fade'); countEl.classList.add('fade'); return; }
+  capTag.textContent = W[i].tag; capName.textContent = W[i].name; capLink.href = W[i].href;
+  countEl.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(W.length).padStart(2, '0');
+  capEl.classList.remove('fade'); countEl.classList.remove('fade');
+}
+
+function resize() { const w = innerWidth, h = innerHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.fov = w / h < 1.3 ? 56 : 42; camera.updateProjectionMatrix(); }
+addEventListener('resize', resize); resize();
+
+const clock = new THREE.Clock();
+function tick() {
+  const dt = Math.min(clock.getDelta(), 0.05);
+  cur += (target - cur) * (reduce ? 1 : 1 - Math.exp(-dt * 6));
+  setCam(cur);
+  frames.forEach((f, i) => { const s = (i === hot) ? 1.03 : 1; f.grp.scale.lerp(new THREE.Vector3(s, s, s), 0.15); });
+  updateCap();
+  renderer.render(scene, camera);
+  requestAnimationFrame(tick);
+}
+// 시험·캡처용
+window.__gallery = { go: i => { target = START + i * STEP; }, jump: i => { cur = target = START + i * STEP; }, setYaw: y => { cur = target = y; }, START, STEP, MIN, MAX };
+tick();
+</script>
+</body>
+</html>
