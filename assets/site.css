@@ -422,3 +422,7 @@ a { transition: color .25s ease; }
   .contact .ask-form, .contact .ask-done { margin-top: 24px; }
   .contact .split.ask-top { align-items: start; }
 }
+
+/* 전시장 메뉴: 휴대폰 머리줄이 넘치지 않게 PC에서만 */
+.site-header nav .nav-gal { display: none; }
+@media (min-width: 900px) { .site-header nav .nav-gal { display: inline; } }
