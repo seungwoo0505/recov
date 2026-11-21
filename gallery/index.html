@@ -14,7 +14,16 @@
   :root { --bg:#0B0B0B; --ink:#FFFFFF; --sub:#A3A39E; --line:#333333; --accent:#D8472B; }
   * { box-sizing:border-box; }
   html, body { margin:0; height:100%; background:var(--bg); color:var(--ink); font-family:"Pretendard Variable",Pretendard,system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
-  body { overflow:hidden; }
+  body { overflow:hidden; overscroll-behavior:none; }
+  #stage canvas { touch-action:none; }
+  @media (max-width: 759px) {
+    header { padding:18px 20px; }
+    header nav { gap:16px; font-size:13px; }
+    .cap { bottom:44px; } .cap .tag { font-size:24px; } .cap .name { font-size:13px; }
+    .count { right:20px; bottom:20px; font-size:12px; }
+    .bar { left:20px; right:20px; bottom:14px; }
+    .hint { width:calc(100% - 64px); font-size:15px; }
+  }
   a { color:inherit; }
   .cond { font-family:Antonio,"Pretendard Variable",sans-serif; letter-spacing:.02em; text-transform:uppercase; }
 
@@ -67,7 +76,7 @@
 <div id="stage" aria-hidden="true"></div>
 <div class="cap fade" id="cap" aria-live="polite"><p class="tag cond" id="capTag"></p><p class="name" id="capName"></p><a id="capLink" href="#">작업 보기 →</a></div>
 <div class="count cond fade" id="count"></div>
-<div class="hint" id="hint"><span class="mouse" aria-hidden="true"></span><span>휠을 내려 전시장을 걸어 보세요</span><small>작품 앞에서 누르면 상세 페이지로 이동합니다</small></div>
+<div class="hint" id="hint"><span class="mouse" aria-hidden="true"></span><span id="hintMain">휠을 내려 전시장을 걸어 보세요</span><small>작품 앞에서 누르면 상세 페이지로 이동합니다</small></div>
 <div class="bar" aria-hidden="true"><i id="barI"></i></div>
 
 <section id="list" aria-labelledby="listH"><h1 id="listH">Selected Work</h1><ul id="listUl"></ul></section>
@@ -103,7 +112,8 @@ WORKS_READY.then(function(WORKS){
 });
 (function(){
   var gl=false; try{ var c=document.createElement('canvas'); gl=!!(c.getContext('webgl2')||c.getContext('webgl')); }catch(e){}
-  if(!gl || window.matchMedia('(max-width: 759px)').matches) document.body.classList.add('flat');
+  // 3D가 안 되는 브라우저만 목록으로 (휴대폰도 3D 전시장 — 11/21 형님 결정)
+  if(!gl) document.body.classList.add('flat');
 })();
 </script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js"}}</script>
@@ -228,7 +238,9 @@ W.forEach((w, i) => {
 });
 
 // ── 걷기: 카메라 z, 멈추는 자리 = 작품 앞 STOP 만큼 떨어진 곳. 가까운 작품 쪽으로 고개를 돌린다
-const STOP = 3.3;                         // 작품보다 이만큼 앞(+z)에서 멈춤
+// 작품보다 이만큼 앞(+z)에서 멈춤. 세로 화면(휴대폰)은 시야가 좁아 조금 더 물러선다
+const PORTRAIT = innerWidth / innerHeight < 0.9;
+const STOP = PORTRAIT ? 4.6 : 3.3;
 const stopOf = i => zOf(i) + STOP;
 const ZSTART = 5.2, ZEND = END + 3.6;
 let zT = ZSTART, zC = reduce ? ZSTART : ZSTART + 3, yawC = 0;
@@ -243,7 +255,8 @@ addEventListener('wheel', e => { e.preventDefault(); zT = clampZ(zT - (e.deltaY 
 // 터치패드·태블릿 끌기
 let ty = null;
 addEventListener('touchstart', e => { ty = e.touches[0].clientY; }, { passive: true });
-addEventListener('touchmove', e => { if (ty == null) return; const y = e.touches[0].clientY; zT = clampZ(zT - (ty - y) * 0.03); ty = y; hideHint(); snap(); }, { passive: true });
+addEventListener('touchmove', e => { if (ty == null) return; const y = e.touches[0].clientY; zT = clampZ(zT - (ty - y) * 0.022); ty = y; hideHint(); }, { passive: true });
+addEventListener('touchend', () => { ty = null; snap(); }, { passive: true });
 const goto = d => { const n = nearest(zT); const k = Math.max(0, Math.min(W.length - 1, (d > 0 && zT > stopOf(0) + 0.5) ? 0 : n.i + d)); zT = stopOf(k); hideHint(); };
 addEventListener('keydown', e => {
   if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].includes(e.key)) { goto(1); e.preventDefault(); }
@@ -251,6 +264,7 @@ addEventListener('keydown', e => {
   if (e.key === 'Enter' && focusIdx >= 0) location.href = W[focusIdx].href;
 });
 const hint = document.getElementById('hint');
+if (matchMedia('(pointer: coarse)').matches) { document.getElementById('hintMain').textContent = '손가락으로 위로 쓸어 걸어 보세요'; hint.querySelector('small').textContent = '작품 앞에서 누르면 상세 페이지로 이동합니다'; }
 function hideHint() { hint.style.opacity = 0; }
 
 // 클릭: 서 있는 작품이면 상세로, 다른 작품이면 그 앞으로 걸어간다
@@ -278,11 +292,11 @@ function updateCap() {
   capEl.classList.remove('fade'); countEl.classList.remove('fade');
 }
 
-function resize() { const w = innerWidth, h = innerHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.fov = w / h < 1.3 ? 66 : 58; camera.updateProjectionMatrix(); }
+function resize() { const w = innerWidth, h = innerHeight; renderer.setSize(w, h, false); camera.aspect = w / h; camera.fov = w / h < 0.9 ? 74 : (w / h < 1.3 ? 66 : 58); camera.updateProjectionMatrix(); }
 addEventListener('resize', resize); resize();
 
 // 고개 돌림: 가까운 작품과의 거리에 따라 그쪽으로 최대 YAW 만큼
-const YAW = 0.62;
+const YAW = PORTRAIT ? Math.atan((HW - 0.05) / STOP) : 0.62;   // 세로 화면은 작품 정면을 거의 바로 본다
 function yawFor(z) {
   let y = 0, wsum = 0;
   frames.forEach((f, i) => { const d = z - stopOf(i); const w = Math.exp(-(d * d) / (2 * 1.3 * 1.3)); y += w * (-f.s) * YAW; wsum += w; });
