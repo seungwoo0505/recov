@@ -423,6 +423,6 @@ a { transition: color .25s ease; }
   .contact .split.ask-top { align-items: start; }
 }
 
-/* 전시장 메뉴: 휴대폰 머리줄이 넘치지 않게 PC에서만 */
-.site-header nav .nav-gal { display: none; }
-@media (min-width: 900px) { .site-header nav .nav-gal { display: inline; } }
+/* 휴대폰: About 대신 Gallery (11/21 형님 결정), PC: 모두 */
+.site-header nav .nav-about { display: none; }
+@media (min-width: 900px) { .site-header nav .nav-about { display: inline; } }
