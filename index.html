@@ -31,6 +31,12 @@
   .works-more { display:none; margin:8px var(--gutter) 0; }
   @media (min-width: 900px) { .works-more { display:block; text-align:right; } }
   @media (min-width: 900px) { .award-badge { left: 20px; top: 20px; font-size: 15px; padding: 9px 16px; } .hero .award-badge { left: var(--gutter); top: 116px; } }
+  .work-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 28px; }
+  .work-filter button { font: inherit; font-size: 13px; font-weight: 500; color: var(--sub, #A3A39E); background: transparent; border: 1px solid #3a3a38; border-radius: 999px; padding: 7px 14px; cursor: pointer; transition: color .2s, border-color .2s, background .2s; }
+  .work-filter button:hover { color: #fff; border-color: #777; }
+  .work-filter button[aria-pressed="true"] { color: #0B0B0B; background: #F2F0EA; border-color: #F2F0EA; font-weight: 700; }
+  .tiles li[hidden] { display: none; }
+  @media (min-width: 900px) { .work-filter { margin-bottom: 40px; } .work-filter button { font-size: 14px; padding: 8px 18px; } }
 </style>
 </head>
 <body>
@@ -100,52 +106,57 @@
   <section class="works" id="work" aria-labelledby="work-h">
     <div class="sec-head">
       <h2 class="eyebrow" id="work-h">Selected Work</h2>
-      <span class="eyebrow" aria-hidden="true">08</span>
+      <span class="eyebrow" aria-hidden="true" id="work-count">08</span>
+    </div>
+    <div class="work-filter" role="group" aria-label="분야로 보기">
+      <button type="button" data-f="all" aria-pressed="true">전체</button>
+      <button type="button" data-f="product" aria-pressed="false">제품 디자인</button>
+      <button type="button" data-f="eng" aria-pressed="false">설계 · 엔지니어링</button>
     </div>
     <ul class="tiles">
-      <li class="rv">
+      <li class="rv" data-cat="product">
         <a class="tile" href="boneul/">
           <div class="ph"><img src="img/lant_case.jpg?v=4" alt="광화문 앞에 불을 켠 세 가지 색 석등 무드등" width="1080" height="810" loading="lazy"></div>
           <div class="meta"><span class="no cond">01</span><span class="t cond"><span>STONE LANTERN</span></span><span class="k">나주 서문 석등 무드등</span></div>
         </a>
       </li>
-      <li class="rv">
+      <li class="rv" data-cat="product">
         <a class="tile" href="hexatrail/">
           <div class="ph"><img src="img/hex_hero_d.jpg?v=2" alt="한강 앞에서 손에 든, 메달을 넣고 연 메달케이스" width="1800" height="1350" loading="lazy"></div>
           <div class="meta"><span class="no cond">02</span><span class="t cond"><span>MEDAL CASE</span></span><span class="k">러닝 메달케이스</span></div>
         </a>
       </li>
-      <li class="rv">
+      <li class="rv" data-cat="product">
         <a class="tile" href="gwanghwa/">
           <div class="ph"><span class="award-badge">제2회 서울 브랜드 굿즈 공모 선정</span><img src="img/gw_case_real.jpg?v=4" alt="광화문 앞에 놓은 세 가지 색 광화수문 라이트박스" width="1080" height="812" loading="lazy"></div>
           <div class="meta"><span class="no cond">03</span><span class="t cond"><span>HAECHI GATE</span></span><span class="k">광화수문 라이트박스</span></div>
         </a>
       </li>
-      <li class="rv">
+      <li class="rv" data-cat="eng">
         <a class="tile" href="fitholder/">
           <div class="ph"><span class="award-badge">제5회 기아 PBV 아이디어 공모전 최우수상</span><img src="img/fit_case_web.jpg?v=1" alt="치수를 넣으면 맞춤 홀더가 설계되는 핏홀더 메이커 웹 화면" width="1080" height="810" loading="lazy"></div>
           <div class="meta"><span class="no cond">04</span><span class="t cond"><span>FIT HOLDER</span></span><span class="k">차량용 맞춤 홀더 설계 도구</span></div>
         </a>
       </li>
-      <li class="rv">
+      <li class="rv" data-cat="product">
         <a class="tile" href="shuttle/">
           <div class="ph"><img src="img/shuttle_case.jpg?v=1" alt="불을 켠 우주왕복선 무드등" width="1080" height="810" loading="lazy"></div>
           <div class="meta"><span class="no cond">05</span><span class="t cond"><span>SPACE SHUTTLE</span></span><span class="k">우주왕복선 무드등</span></div>
         </a>
       </li>
-      <li class="rv">
+      <li class="rv" data-cat="product">
         <a class="tile" href="obang/">
           <div class="ph"><img src="img/obang_case.jpg?v=1" alt="불을 켠 오방등 견본" width="1080" height="810" loading="lazy"></div>
           <div class="meta"><span class="no cond">06</span><span class="t cond"><span>OBANGDEUNG</span></span><span class="k">오방등 무드등</span></div>
         </a>
       </li>
-      <li class="rv">
+      <li class="rv" data-cat="eng">
         <a class="tile" href="forklift/">
           <div class="ph"><img src="img/forklift_case.jpg?v=2" alt="헤드가드를 단 노란 지게차 운전석이 3축 모션 플랫폼과 받침판 위에 올라간 3D 렌더" width="1080" height="810" loading="lazy"></div>
           <div class="meta"><span class="no cond">07</span><span class="t cond"><span>FORKLIFT SIM</span></span><span class="k">지게차 교육 시뮬레이터 콕핏</span></div>
         </a>
       </li>
-      <li class="rv">
+      <li class="rv" data-cat="product">
         <a class="tile" href="gatemedal/">
           <div class="ph"><img src="img/gatemedal_case.jpg?v=2" alt="불을 켠 메달 거치 무드등의 3D 렌더. 홍예문 안에 완주 메달이 걸려 있다" width="1080" height="810" loading="lazy"></div>
           <div class="meta"><span class="no cond">08</span><span class="t cond"><span>MEDAL LIGHT</span></span><span class="k">메달 거치 무드등</span></div>
@@ -258,6 +269,20 @@
   </nav>
 </footer>
 
+<script>
+(function(){
+  var bs=document.querySelectorAll('.work-filter button'), items=document.querySelectorAll('.tiles li[data-cat]'), cnt=document.getElementById('work-count');
+  function show(f){
+    var n=0;
+    items.forEach(function(li){ var on=(f==='all'||li.dataset.cat===f); li.hidden=!on; if(on){n++; li.classList.add('in');} });
+    bs.forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.f===f?'true':'false'); });
+    if(cnt) cnt.textContent=(n<10?'0':'')+n;
+    try{ history.replaceState(null,'', f==='all'?location.pathname+'#work':'#work-'+f); }catch(e){}
+  }
+  bs.forEach(function(b){ b.addEventListener('click',function(){ show(b.dataset.f); }); });
+  var m=location.hash.match(/^#work-(product|eng)$/); if(m) show(m[1]);
+})();
+</script>
 <script src="assets/hero.js?v=20261116a"></script>
 <script src="assets/ask.js?v=20261116c" defer></script>
 <script data-goatcounter="https://recovlab.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
